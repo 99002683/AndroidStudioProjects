@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Text To Speech Readout</string>
+    <string name="type_here">Type text here</string>
+    <string name="text_to_speech">Text To Speech</string>
+    <string name="convert">Play</string>
+    <string name="open_button">Open</string>
+    <string name="Browse">To Upload a file</string>
+    <string name="error_tag">ERROR_TAG</string>
+</resources>
