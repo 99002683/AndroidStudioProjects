@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">KeyBoard Plus</string>
+
+    <string name="hello1">Hello! Welcome to Keyboard Plus</string>
+    <string name="about">This program is made up by Pooja Pol. </string>
+    <string name="name_link">Copyright 2020 Pooja Pol.</string>
+    <string name="close">Close</string>
+    <string name="hello">Hello</string>
+    <string name="bye">Bye</string>
+    <string name="ring">Ring</string>
+    <string name="aboutlab">About</string>
+    <string name="title_activity_about">title_about</string>
+    <string name="erase">erase</string>
+    <string name="call">call</string>
+    <string name="star">star</string>
+    <string name="hash">hash</string>
+    <string name="zero">zero</string>
+</resources>
