@@ -13,11 +13,13 @@ import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,16 +27,24 @@ import java.util.TimeZone;
 
 public class MainActivity extends WearableActivity implements DisplayManager.DisplayListener {
     private static final IntentFilter intentFilter;
-    private static final String DATE_FORMAT = "aaaaa, DD MMM";
+    private static final String TIME_FORMAT_24 = "H:mm";
+    private static final String TIME_FORMAT_12 = "h:mm";
+    private static final String DATE_FORMAT = "EEE, d MMM yyyy";
+    private static final String TIME_FORMAT_AMPM = "a";
+    private static final String TIME_FORMAT_TIMEZONE = "zzz";
 
-    TextView cdate;
+
+    TextView cDate,cAMPM, cTime,cTimeZone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cdate = (TextView)findViewById(R.id.currentDate);
+        cDate = (TextView)findViewById(R.id.currentDate);
+        cAMPM = (TextView)findViewById(R.id.textViewAMPM);
+        cTime = (TextView) findViewById(R.id.textViewTime);
+        cTimeZone = (TextView) findViewById(R.id.textViewTimeZone);
 
         registerReceiver(timeReceiver,intentFilter);
 
@@ -79,10 +89,45 @@ public class MainActivity extends WearableActivity implements DisplayManager.Dis
     }
 
     private void updateTime() {
+        SimpleDateFormat sdf, sdfAMPM,sdfCurrentDate, sdfTimeZone;
+
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
-        TimeZone tz = cal.getTimeZone();
+        //TimeZone tz = cal.getTimeZone();
+        TimeZone tz = TimeZone.getDefault();
+
         Log.d("Time zone","="+tz.getDisplayName());
+
+
+        if(android.text.format.DateFormat.is24HourFormat(this)){
+            sdf = new SimpleDateFormat(TIME_FORMAT_24);
+            cAMPM.setVisibility(View.INVISIBLE);
+        }
+        else {
+            sdf = new SimpleDateFormat(TIME_FORMAT_12);
+            cAMPM.setVisibility(View.VISIBLE);
+        }
+
+        sdf.setTimeZone(tz);
+        cTime.setText(sdf.format(date));
+
+        sdfAMPM = new SimpleDateFormat(TIME_FORMAT_AMPM);
+        sdfAMPM.setTimeZone(tz);
+        cAMPM.setText(sdfAMPM.format(date));
+
+        sdfCurrentDate = new SimpleDateFormat(DATE_FORMAT);
+        sdfCurrentDate.setTimeZone(tz);
+        cDate.setText(sdfCurrentDate.format(date));
+
+
+        sdfTimeZone = new SimpleDateFormat(TIME_FORMAT_TIMEZONE);
+        sdfTimeZone.setTimeZone(tz);
+        cTimeZone.setText(sdfTimeZone.format(date));
+
+//        sdfTimeZone = new SimpleDateFormat(DATE_FORMAT);
+//        sdfTimeZone.setTimeZone(tz);
+//        cAMPM.setText(sdfTimeZone.format(date));
+
        // TimeZone.getDefault().getDisplayName();
 
         //SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss 'GMT'Z yyyy");
@@ -92,5 +137,4 @@ public class MainActivity extends WearableActivity implements DisplayManager.Dis
 //        cdate.setText(dateFormat.format(date));
 
     }
-
 }

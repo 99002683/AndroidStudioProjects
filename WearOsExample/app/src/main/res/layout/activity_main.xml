@@ -20,6 +20,7 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
             <TextView
+                android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10:00"
@@ -29,19 +30,23 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="2"
+                android:layout_marginLeft="10dp">
                 <TextView
+                    android:id="@+id/textViewAMPM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PM"
+                    android:text="AM"
                     android:textSize="15sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp">
                 </TextView>
                 <TextView
+                    android:id="@+id/textViewTimeZone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="GST"
+                    android:text="CDT"
                     android:layout_weight="1"
                     android:textSize="15sp">
                 </TextView>
@@ -57,8 +62,8 @@
                 android:id="@+id/currentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tuesday, 11 November"
-                android:textSize="20dp">
+                android:text="Wed, 4 Jul 2001"
+                android:textSize="20sp">
             </TextView>
         </LinearLayout>
 
