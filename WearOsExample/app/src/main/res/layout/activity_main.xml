@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey"
+    android:background="@color/black"
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".MainActivity"
     tools:deviceIds="wear">
@@ -13,18 +13,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/inner_frame_layout_padding">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginBottom="95dp">
+
+            <TextView
+                android:id="@+id/watchBattery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:text="20%">
+            </TextView>
+        </LinearLayout>
         
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center">
+
             <TextView
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10:00"
-                android:textSize="50sp"
+                android:text="10:00:00"
+                android:textColor="@color/white"
+                android:textSize="40sp"
                 android:textStyle="bold">
             </TextView>
             <LinearLayout
@@ -32,15 +52,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:weightSum="2"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="8dp">
                 <TextView
                     android:id="@+id/textViewAMPM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AM"
                     android:textSize="15sp"
+                    android:textColor="@color/white"
                     android:layout_weight="1"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="6dp">
                 </TextView>
                 <TextView
                     android:id="@+id/textViewTimeZone"
@@ -48,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:text="CDT"
                     android:layout_weight="1"
+                    android:textColor="@color/white"
                     android:textSize="15sp">
                 </TextView>
             </LinearLayout>
@@ -57,13 +79,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="70dp">
+
             <TextView
                 android:id="@+id/currentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Wed, 4 Jul 2001"
-                android:textSize="20sp">
+                android:textColor="@color/white"
+                android:textSize="15sp">
             </TextView>
         </LinearLayout>
 
