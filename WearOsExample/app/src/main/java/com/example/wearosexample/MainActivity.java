@@ -28,7 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class MainActivity extends WearableActivity implements DisplayManager.DisplayListener {
+public class MainActivity extends DigitalWatchFaceActivity {
     private static final IntentFilter intentFilter;
     private static final String TIME_FORMAT_24 = "H:mm";
     private static final String TIME_FORMAT_12 = "h:mm";
@@ -37,6 +37,7 @@ public class MainActivity extends WearableActivity implements DisplayManager.Dis
     private static final String TIME_FORMAT_TIMEZONE = "zzz";
     private static final String TIME_FORMAT_24_seconds = "H:mm:ss";
     private static final String TIME_FORMAT_12_seconds = "h:mm:ss";
+    //private static final String intent = Intent.ACTION_BATTERY_CHANGED;
 
 
     TextView cDate,cAMPM, cTime,cTimeZone, batteryTxt;
@@ -44,6 +45,44 @@ public class MainActivity extends WearableActivity implements DisplayManager.Dis
     private Date date;
     private  Calendar cal;
 
+
+    @Override
+    public void onScreenDim() { //The display is dozing in a low power state; it is still on but is optimized for showing system-provided content while the device is non-interactive.
+//        cTime.setTextColor(Color.CYAN);
+//        batteryTxt.setTextColor(Color.CYAN);
+
+        batteryTxt.setTextColor(Color.GRAY);
+        cTime.setTextColor(Color.GRAY);
+        cDate.setTextColor(Color.GRAY);
+        cAMPM.setTextColor(Color.GRAY);
+        cTimeZone.setTextColor(Color.GRAY);
+        cAMPM.setVisibility(View.INVISIBLE);
+        cTimeZone.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onScreenAwake() {
+        batteryTxt.setVisibility(View.VISIBLE);
+        cTime.setVisibility(View.VISIBLE);
+        cDate.setVisibility(View.VISIBLE);
+        cAMPM.setVisibility(View.VISIBLE);
+        cTimeZone.setVisibility(View.VISIBLE);
+
+        batteryTxt.setTextColor(Color.WHITE);
+        cTime.setTextColor(Color.WHITE);
+        cDate.setTextColor(Color.WHITE);
+        cAMPM.setTextColor(Color.WHITE);
+        cTimeZone.setTextColor(Color.WHITE);
+    }
+
+    @Override
+    public void onScreenOff() { //The display is off.
+        batteryTxt.setVisibility(View.GONE);
+        cTime.setVisibility(View.GONE);
+        cDate.setVisibility(View.GONE);
+        cAMPM.setVisibility(View.GONE);
+        cTimeZone.setVisibility(View.GONE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +95,7 @@ public class MainActivity extends WearableActivity implements DisplayManager.Dis
         cTimeZone = (TextView) findViewById(R.id.textViewTimeZone);
         batteryTxt = (TextView) findViewById(R.id.watchBattery);
 
-
+        //batteryTxt.setTextColor(Color.WHITE);
         registerReceiver(timeReceiver,intentFilter);
         registerReceiver(batteryReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
@@ -77,15 +116,18 @@ public class MainActivity extends WearableActivity implements DisplayManager.Dis
     private BroadcastReceiver timeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-           updateTime();
+           //updateTime();
         }
     };
+
+
     private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             batteryTxt.setText(String.valueOf(intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) + "%"));
     }
     };
+
 
     private  Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
@@ -97,6 +139,7 @@ public class MainActivity extends WearableActivity implements DisplayManager.Dis
 //            tz = TimeZone.getDefault();
             handler.postDelayed(this, 1000);
             updateTime();
+
         }
     };
 
@@ -107,46 +150,40 @@ public class MainActivity extends WearableActivity implements DisplayManager.Dis
         unregisterReceiver(batteryReceiver);
     }
 
-    @Override
-    public void onDisplayAdded(int displayId) {
 
-    }
-
-    @Override
-    public void onDisplayRemoved(int displayId) {
-
-    }
-
-    @Override
-    public void onDisplayChanged(int displayId) {
-
-    }
-    @Override
-    public void onEnterAmbient(Bundle ambientDetails) {
-        super.onEnterAmbient(ambientDetails);
-//        View view = this.getWindow().getDecorView();
-//        view.setBackgroundColor(#009688);
-
-        //cTime.getPaint().setAntiAlias(false);
-        batteryTxt.setTextColor(Color.GRAY);
-        cTime.setTextColor(Color.GRAY);
-        cDate.setTextColor(Color.GRAY);
-        cAMPM.setTextColor(Color.GRAY);
-        cTimeZone.setTextColor(Color.GRAY);
-    }
-    @Override
-    public void onExitAmbient(){
-        //cTime.getPaint().setAntiAlias(true);
-        batteryTxt.setTextColor(Color.WHITE);
-        cTime.setTextColor(Color.WHITE);
-        cDate.setTextColor(Color.WHITE);
-        cAMPM.setTextColor(Color.WHITE);
-        cTimeZone.setTextColor(Color.WHITE);
-        super.onExitAmbient();
-    }
+//    @Override
+//    public void onEnterAmbient(Bundle ambientDetails) {
+//        super.onEnterAmbient(ambientDetails);
+////        View view = this.getWindow().getDecorView();
+////        view.setBackgroundColor(#009688);
+//
+//        //cTime.getPaint().setAntiAlias(false);
+//        batteryTxt.setTextColor(Color.GRAY);
+//        cTime.setTextColor(Color.GRAY);
+//        cDate.setTextColor(Color.GRAY);
+//        cAMPM.setTextColor(Color.GRAY);
+//        cTimeZone.setTextColor(Color.GRAY);
+//    }
+//    @Override
+//    public void onExitAmbient(){
+//        //cTime.getPaint().setAntiAlias(true);
+//        batteryTxt.setTextColor(Color.WHITE);
+//        cTime.setTextColor(Color.WHITE);
+//        cDate.setTextColor(Color.WHITE);
+//        cAMPM.setTextColor(Color.WHITE);
+//        cTimeZone.setTextColor(Color.WHITE);
+//        super.onExitAmbient();
+//    }
+//
+//    @Override
+//    public void onUpdateAmbient() {
+//        super.onUpdateAmbient();
+////        cAMPM.setText("");
+////        cTimeZone.setText("");
+//    }
 
     private void updateTime() {
-        SimpleDateFormat sdf, sdfAMPM,sdfCurrentDate, sdfTimeZone;
+        SimpleDateFormat sdf, sdfAMPM, sdfCurrentDate, sdfTimeZone;
 
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
