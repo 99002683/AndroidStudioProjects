@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,9 +47,17 @@ public class MainActivity extends DigitalWatchFaceActivity {
     private static final String TIME_FORMAT_12_seconds = "ss";
 
     TextView cDate,cAMPM, cHours, cMinutes, cSeconds, cTimeZone, batteryTxt;
+<<<<<<< Updated upstream
     private TimeZone tz;
     private Date date;
     private  Calendar cal;
+=======
+    androidx.wear.widget.BoxInsetLayout currentLayout;
+    LinearLayout LinLayout;
+    int deviceStatus;
+    String currentBatteryStatus="Battery Info";
+    ImageView batteryPercentage;
+>>>>>>> Stashed changes
 
 
     @Override
@@ -69,15 +78,30 @@ public class MainActivity extends DigitalWatchFaceActivity {
         cAMPM.setTextColor(getResources().getColor(R.color.LightSlateGray));
         cTimeZone.setTextColor(getResources().getColor(R.color.LightSlateGray));
         cAMPM.setVisibility(View.INVISIBLE);
+<<<<<<< Updated upstream
         cTimeZone.setVisibility(View.INVISIBLE);
 
 
         //setActivityBackgroundColor(View.VISIBLE);
+=======
+        //cAMPM.setBackground(getDrawable(R.color.Black));
+
+        cTimeZone.setVisibility(View.INVISIBLE);
+        //cTimeZone.setBackground(getDrawable(R.color.Black));
+>>>>>>> Stashed changes
     }
 
     @Override
     public void onScreenAwake() {
         batteryTxt.setVisibility(View.VISIBLE);
+<<<<<<< Updated upstream
+=======
+        //setActivityBackgroundColor(R.color.black);
+        //currentLayout.setBackgroundColor(getResources().getColor(R.color.Black));    //if color
+        currentLayout.setBackground(getDrawable(R.color.black));               //if image
+
+        LinLayout.setBackground(getDrawable(R.color.FullTransparent));
+>>>>>>> Stashed changes
 
 //        cHours.setTypeface(cHours.getTypeface(), Typeface.NORMAL);
 //        cMinutes.setTypeface(cMinutes.getTypeface(), Typeface.NORMAL);
@@ -98,7 +122,11 @@ public class MainActivity extends DigitalWatchFaceActivity {
         cHours.setTextColor(Color.WHITE);
         cMinutes.setTextColor(Color.WHITE);
         cSeconds.setTextColor(Color.WHITE);
+<<<<<<< Updated upstream
         cDate.setTextColor(Color.WHITE);
+=======
+        cDate.setTextColor(getResources().getColor(R.color.DarkRed));
+>>>>>>> Stashed changes
         cAMPM.setTextColor(Color.WHITE);
         cTimeZone.setTextColor(Color.WHITE);
 
@@ -132,10 +160,15 @@ public class MainActivity extends DigitalWatchFaceActivity {
         registerReceiver(timeReceiver,intentFilter);
         registerReceiver(batteryReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewPage);
+        ImageAdapter adapterView = new ImageAdapter(this);
+        mViewPager.setAdapter(adapterView);
+
         handler.post(runnable);
 
         // Enables Always-on
        setAmbientEnabled();
+
     }
 
     static {

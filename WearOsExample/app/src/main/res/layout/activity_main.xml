@@ -10,6 +10,12 @@
     tools:context=".MainActivity"
     tools:deviceIds="wear">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,8 +26,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
+<<<<<<< Updated upstream
             android:layout_marginBottom="95dp">
 
+=======
+            android:gravity="center"
+            android:layout_marginBottom="75dp"
+            android:background="@drawable/circle">
+            <ImageView
+                android:id="@+id/batteryStatus"
+                android:layout_width="15dp"
+                android:layout_height="18dp">
+            </ImageView>
+>>>>>>> Stashed changes
             <TextView
                 android:id="@+id/watchBattery"
                 android:layout_width="wrap_content"
@@ -127,8 +144,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Wed, 4 Jul 2001"
+<<<<<<< Updated upstream
                 android:textColor="@color/white"
                 android:textSize="15sp"
+=======
+                android:layout_gravity="center"
+                android:textColor="@color/DarkRed"
+                android:textSize="12sp"
+>>>>>>> Stashed changes
                 android:textStyle="bold">
             </TextView>
         </LinearLayout>
