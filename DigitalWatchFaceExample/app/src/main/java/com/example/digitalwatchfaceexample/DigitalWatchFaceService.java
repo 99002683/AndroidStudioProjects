@@ -39,13 +39,13 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
 
     private class SimpleEngine extends CanvasWatchFaceService.Engine {
 
-        //implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+
         private static final String ACTION_TIME_ZONE = "time-zone";
         private static final String TAG = "SimpleEngine";
 
         private DigitalWatchFace watchFace;
         private Handler timeTick;
-        //private GoogleApiClient googleApiClient;
+
 
         @Override
         public void onCreate(SurfaceHolder holder) {
@@ -64,11 +64,7 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
             DigitalWatchFace.mCalendar = Calendar.getInstance();
 
             watchFace = DigitalWatchFace.newInstance(DigitalWatchFaceService.this);
-//            googleApiClient = new GoogleApiClient.Builder(DigitalWatchFaceService.this)
-//                    .addApi(Wearable.API)
-//                    .addConnectionCallbacks(this)
-//                    .addOnConnectionFailedListener(this)
-//                    .build();
+//
         }
 
         private void startTimerIfNecessary() {
@@ -106,21 +102,14 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
                 registerTimeZoneReceiver();
                 DigitalWatchFace.mCalendar.setTimeZone(TimeZone.getDefault());
                 invalidate();
-                //googleApiClient.connect();
             } else {
                 unregisterTimeZoneReceiver();
-                //releaseGoogleApiClient();
             }
 
             startTimerIfNecessary();
         }
 
-//        private void releaseGoogleApiClient() {
-//            if (googleApiClient != null && googleApiClient.isConnected()) {
-//                Wearable.DataApi.removeListener(googleApiClient, onDataChangedListener);
-//                googleApiClient.disconnect();
-//            }
-//        }
+//
 
         private void unregisterTimeZoneReceiver() {
             unregisterReceiver(timeZoneChangedReceiver);
@@ -169,11 +158,11 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
             if (isInAmbientMode()) {
                 watchFace.isInAmbientMode(canvas, bounds);
             } else {
-                watchFace.isNotInAmbientMode(canvas,bounds);
-
-
-                watchFace.draw(canvas, bounds);
+                watchFace.isNotInAmbientMode(canvas, bounds);
             }
+
+            watchFace.draw(canvas, bounds);
+
         }
 
         @Override
@@ -196,45 +185,9 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
 
         }
 
-
-//        @Override
-//        public void onConnected(Bundle bundle) {
-//            Log.d(TAG, "connected GoogleAPI");
-//
-//            Wearable.DataApi.addListener(googleApiClient, onDataChangedListener);
-//            Wearable.DataApi.getDataItems(googleApiClient).setResultCallback(onConnectedResultCallback);
-//        }
-
-//        private final DataApi.DataListener onDataChangedListener = new DataApi.DataListener() {
-//            @Override
-//            public void onDataChanged(DataEventBuffer dataEvents) {
-//                dataEvents.release();
-//                invalidateIfNecessary();
-//            }
-//        };
-//
-//        private final ResultCallback<DataItemBuffer> onConnectedResultCallback = new ResultCallback<DataItemBuffer>() {
-//            @Override
-//            public void onResult(DataItemBuffer dataItems) {
-//                dataItems.release();
-//                invalidateIfNecessary();
-//            }
-//        };
-
-//        @Override
-//        public void onConnectionSuspended(int i) {
-//            Log.e(TAG, "suspended GoogleAPI");
-//        }
-//
-//        @Override
-//        public void onConnectionFailed(ConnectionResult connectionResult) {
-//            Log.e(TAG, "connectionFailed GoogleAPI");
-//        }
-
         @Override
         public void onDestroy() {
             timeTick.removeCallbacks(timeRunnable);
-            //releaseGoogleApiClient();
 
             super.onDestroy();
         }

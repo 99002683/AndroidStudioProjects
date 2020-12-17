@@ -257,10 +257,22 @@ public class DigitalWatchFace {
     }
 
     public void isInAmbientMode(Canvas canvas, Rect bounds){
-        canvas.drawColor(Color.BLACK);
+        //canvas.drawColor(Color.DKGRAY);
+        backgroundPaint.setColor(Color.GRAY);
+        //canvas.drawRect(0, 0, bounds.width(), bounds.height(), backgroundPaint);
+        hourPaint.setColor(Color.BLACK);
+        minutePaint.setColor(Color.BLACK);
+        datePaint.setColor(Color.BLACK);
+        dayPaint.setColor(Color.BLACK);
+
     }
     public void isNotInAmbientMode(Canvas canvas, Rect bounds){
         canvas.drawRect(0, 0, bounds.width(), bounds.height(), backgroundPaint);
+        backgroundPaint.setColor(Color.BLACK);
+        hourPaint.setColor(Color.WHITE);
+        minutePaint.setColor(Color.WHITE);
+        datePaint.setColor(Color.WHITE);
+        dayPaint.setColor(Color.WHITE);
     }
 
 }
