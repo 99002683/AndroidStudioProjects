@@ -27,7 +27,8 @@ public class DigitalWatchFace {
 
     private static final String TIME_FORMAT_WITHOUT_SECONDS = "%02d:%02d";
     private static final String TIME_FORMAT_WITH_SECONDS = TIME_FORMAT_WITHOUT_SECONDS + ":%02d";
-    private static final String TIME_FORMAT_HOURS = "%02d";
+    private static final String TIME_FORMAT_24_HOURS = "HH";
+    private static final String TIME_FORMAT_12_HOURS = "hh";       //%02d
     private static final String TIME_FORMAT_MINUTES = "%02d";
     private static final String DATE_FORMAT = "%d/%02d/%02d";   //"%02d.%02d.%d"
     private static final String DAY_FORMAT = "E";
@@ -37,8 +38,6 @@ public class DigitalWatchFace {
     Paint heartImgPaint;
 
 //   private final Paint batteryPaint;
-    //private final Paint secondStickPaint;
-
     static Calendar mCalendar;
 
 
@@ -117,11 +116,6 @@ public class DigitalWatchFace {
 //        batteryPaint.setColor(context.getResources().getColor(R.color.primaryColorBlue));
 //        batteryPaint.setTextSize(context.getResources().getDimension(R.dimen.date_size));
 //        batteryPaint.setAntiAlias(true);
-//
-//        Paint secondStickPaint = new Paint();
-//        secondStickPaint.setColor(context.getResources().getColor(R.color.primaryColorBlue));
-//        secondStickPaint.setStrokeWidth(3);
-//        secondStickPaint.setAntiAlias(true);
 
         return new DigitalWatchFace(hourPaint, minutePaint, datePaint, dayPaint, backgroundPaint, mHeartImg, mFootstepsBitmap, mCaloriesBitmap);    }
 
@@ -138,7 +132,6 @@ public class DigitalWatchFace {
         //this.heartImgPaint = heartImgPaint;
 
 //        this.batteryPaint = batteryPaint;
-//        this.secondStickPaint = secondStickPaint;
 
     }
 
@@ -159,18 +152,6 @@ public class DigitalWatchFace {
         long now = System.currentTimeMillis();
         mCalendar.setTimeInMillis(now);
 
-
-
-//        int hour = mCalendar.get(Calendar.HOUR);
-//        hour = hour == 0 ? 12 : hour;
-//
-//        String month = new SimpleDateFormat("MMM dd").format(mCalendar.getTime());
-//        String text = String.format("%d:%02d", hour, mCalendar.get(Calendar.MINUTE));
-//        String date = month;
-//        String seconds_text = String.format("%02d", mCalendar.get(Calendar.SECOND));
-//        int seconds_now = mCalendar.get(Calendar.SECOND);
-//        int millis_now = mCalendar.get(Calendar.MILLISECOND);
-
         canvas.drawRect(0, 0, bounds.width(), bounds.height(), backgroundPaint);
 
 //        String timeText = String.format(shouldShowSeconds ? TIME_FORMAT_WITH_SECONDS : TIME_FORMAT_WITHOUT_SECONDS, time.hour, time.minute, time.second);
@@ -178,8 +159,12 @@ public class DigitalWatchFace {
 //        float timeYOffset = bounds.centerY();
 //        canvas.drawText(timeText, timeXOffset, timeYOffset, timePaint);
 
+        Date date = new Date();
+        TimeZone tz = TimeZone.getDefault();
 
-        String hourText = String.format(TIME_FORMAT_HOURS,mCalendar.get(Calendar.HOUR));
+        SimpleDateFormat sdf = new SimpleDateFormat(TIME_FORMAT_12_HOURS);
+        sdf.setTimeZone(tz);
+        String hourText = String.format(sdf.format(date), sdf);
         float hourXOffset = computeXOffset(hourText, hourPaint, bounds);
         float hourYOffset = (float) (mHeight * 0.4);
         canvas.drawText(hourText, hourXOffset , hourYOffset, hourPaint);
@@ -210,10 +195,6 @@ public class DigitalWatchFace {
 //        float batteryYOffset = computeYOffset(batteryText, batteryPaint);
 //        canvas.drawText(batteryText, batteryXOffset, timeYOffset + dateYOffset + batteryYOffset, batteryPaint);
 
-//        float mSecondHandLength = mCenterX;
-//        float secondsRotation = time.second * 6f;
-//        canvas.rotate(secondsRotation, mCenterX, mCenterY);
-//        canvas.drawLine(mCenterX, mCenterY - 120, mCenterX, mCenterY - mSecondHandLength, secondStickPaint);
     }
 
 
