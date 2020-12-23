@@ -17,7 +17,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,12 +38,12 @@ public class MainActivity extends DigitalWatchFaceActivity {
     private static final String TIME_FORMAT_12 = "h:mm";
     private static final String DATE_FORMAT = "EEE, d MMM yyyy";
     private static final String TIME_FORMAT_AMPM = "a";
-    private static final String TIME_FORMAT_TIMEZONE = "Z";
+    private static final String TIME_FORMAT_TIMEZONE = "+05:30";
     private static final String TIME_FORMAT_24_seconds = "H:mm:ss";
     private static final String TIME_FORMAT_12_allTime = "h:mm:ss";
     //private static final String intent = Intent.ACTION_BATTERY_CHANGED;
 
-    private static final String TIME_FORMAT_12_hours = "h";
+    private static final String TIME_FORMAT_12_hours = "h:";
     private static final String TIME_FORMAT_12_minutes = "mm";
     private static final String TIME_FORMAT_12_seconds = "ss";
 
@@ -49,6 +51,12 @@ public class MainActivity extends DigitalWatchFaceActivity {
     private TimeZone tz;
     private Date date;
     private  Calendar cal;
+    androidx.wear.widget.BoxInsetLayout currentLayout;
+    LinearLayout LinLayout;
+    int deviceStatus;
+    String currentBatteryStatus="Battery Info";
+    int batteryLevel;
+    ImageView batteryPercentage;
 
 
     @Override
@@ -56,28 +64,36 @@ public class MainActivity extends DigitalWatchFaceActivity {
 //        cHours.setTextColor(Color.CYAN);
 //        batteryTxt.setTextColor(Color.CYAN);
 
-
-        setActivityBackgroundColor(getColor(R.color.DarkGray1));
+        //setActivityBackgroundColor(View.VISIBLE);
+        //setActivityBackgroundColor(getResources().getColor(R.color.Cyan));
+        //setActivityBackgroundColor(R.color.Cyan);
+        currentLayout.setBackgroundColor(getResources().getColor(R.color.DarkGray1));
+        //LinLayout.setBackground(getDrawable(R.drawable.circlewithimage));
+        LinLayout.setBackground(getDrawable(R.drawable.circlewithimage));
 
         cHours.setTextColor(getResources().getColor(R.color.DarkGray));
         cMinutes.setTextColor(getResources().getColor(R.color.DarkGray));
         cSeconds.setTextColor(getResources().getColor(R.color.DarkGray));
-        cSeconds.setVisibility(View.INVISIBLE);
+        //cSeconds.setVisibility(View.INVISIBLE);
 
-        batteryTxt.setTextColor(getResources().getColor(R.color.LightSlateGray));
-        cDate.setTextColor(getResources().getColor(R.color.LightSlateGray));
+        batteryTxt.setTextColor(getResources().getColor(R.color.white));
+        cDate.setTextColor(getResources().getColor(R.color.white));
         cAMPM.setTextColor(getResources().getColor(R.color.LightSlateGray));
-        cTimeZone.setTextColor(getResources().getColor(R.color.LightSlateGray));
+//        cTimeZone.setTextColor(getResources().getColor(R.color.LightSlateGray));
         cAMPM.setVisibility(View.INVISIBLE);
+        cAMPM.setBackground(getDrawable(R.color.Black));
+
         cTimeZone.setVisibility(View.INVISIBLE);
-
-
-        //setActivityBackgroundColor(View.VISIBLE);
+        cTimeZone.setBackground(getDrawable(R.color.Black));
     }
 
     @Override
     public void onScreenAwake() {
         batteryTxt.setVisibility(View.VISIBLE);
+        //setActivityBackgroundColor(R.color.black);
+        currentLayout.setBackgroundColor(getResources().getColor(R.color.Black));
+
+        LinLayout.setBackground(getDrawable(R.color.black));
 
 //        cHours.setTypeface(cHours.getTypeface(), Typeface.NORMAL);
 //        cMinutes.setTypeface(cMinutes.getTypeface(), Typeface.NORMAL);
@@ -85,23 +101,29 @@ public class MainActivity extends DigitalWatchFaceActivity {
 
         cDate.setVisibility(View.VISIBLE);
         cAMPM.setVisibility(View.VISIBLE);
+        cAMPM.setBackground(getDrawable(R.drawable.circle));
+
         cTimeZone.setVisibility(View.VISIBLE);
+        cTimeZone.setBackground(getDrawable(R.drawable.circle));
+//        cTimeZone.setVisibility(View.VISIBLE);
 
         cHours.setVisibility(View.VISIBLE);
         cMinutes.setVisibility(View.VISIBLE);
         cSeconds.setVisibility(View.VISIBLE);
 
-        setActivityBackgroundColor(View.INVISIBLE);
+//        setActivityBackgroundColor(View.INVISIBLE);
+//        setActivityBackgroundColor(getColor(R.color.DarkGray1));
 
 
         batteryTxt.setTextColor(Color.WHITE);
         cHours.setTextColor(Color.WHITE);
         cMinutes.setTextColor(Color.WHITE);
         cSeconds.setTextColor(Color.WHITE);
-        cDate.setTextColor(Color.WHITE);
+        cDate.setTextColor(getResources().getColor(R.color.LightSeaGreen));
         cAMPM.setTextColor(Color.WHITE);
-        cTimeZone.setTextColor(Color.WHITE);
 
+//        cTimeZone.setTextColor(Color.WHITE);
+// android:background="@drawable/circlewithimage"
     }
 
     @Override
@@ -110,7 +132,7 @@ public class MainActivity extends DigitalWatchFaceActivity {
         cHours.setVisibility(View.GONE);
         cDate.setVisibility(View.GONE);
         cAMPM.setVisibility(View.GONE);
-        cTimeZone.setVisibility(View.GONE);
+//        cTimeZone.setVisibility(View.GONE);
     }
 
     @Override
@@ -126,7 +148,14 @@ public class MainActivity extends DigitalWatchFaceActivity {
         cSeconds = (TextView) findViewById(R.id.textViewTimeSecond);
 
         cTimeZone = (TextView) findViewById(R.id.textViewTimeZone);
+        cTimeZone.setSingleLine(false);
+        //cTimeZone.setText("first line\n"+"second line\n"+"third line");
+
         batteryTxt = (TextView) findViewById(R.id.watchBattery);
+        batteryPercentage = (ImageView) findViewById(R.id.batteryStatus);
+
+        currentLayout = (androidx.wear.widget.BoxInsetLayout) findViewById(R.id.myLayout);
+        LinLayout = (LinearLayout) findViewById(R.id.linear1);
 
         //batteryTxt.setTextColor(Color.WHITE);
         registerReceiver(timeReceiver,intentFilter);
@@ -161,8 +190,71 @@ public class MainActivity extends DigitalWatchFaceActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             batteryTxt.setText(String.valueOf(intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) + "%"));
-    }
-    };
+
+            deviceStatus = intent.getIntExtra(BatteryManager.EXTRA_STATUS,-1);
+            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            //int batteryLevel=(int)(((float)level / (float)scale) * 100.0f);
+
+            if(deviceStatus == BatteryManager.BATTERY_STATUS_CHARGING){
+
+                //textview.setText(currentBatteryStatus+" = Charging at "+batteryLevel+" %");
+                batteryPercentage.setImageDrawable(getDrawable(R.drawable.rounded_charging));
+                Log.d("Battery Status","= BATTERY_STATUS_CHARGING");
+            }
+
+            if(deviceStatus == BatteryManager.BATTERY_STATUS_DISCHARGING){
+
+                //textview.setText(currentBatteryStatus+" = Discharging at "+batteryLevel+" %");
+                batteryPercentage.setImageDrawable(getDrawable(R.drawable.rounded_critical));
+                Log.d("Battery Status","= BATTERY_STATUS_DISCHARGING");
+            }
+
+            if (deviceStatus == BatteryManager.BATTERY_STATUS_FULL){
+
+                //textview.setText(currentBatteryStatus+"= Battery Full at "+batteryLevel+" %");
+                batteryPercentage.setImageDrawable(getDrawable(R.drawable.charging));
+                Log.d("Battery Status","= BATTERY_STATUS_FULL");
+            }
+
+            if(deviceStatus == BatteryManager.BATTERY_STATUS_UNKNOWN){
+
+                //textview.setText(currentBatteryStatus+" = Unknown at "+batteryLevel+" %");
+                batteryPercentage.setImageDrawable(getDrawable(R.drawable.rounded_unknown));
+                Log.d("Battery Status","= BATTERY_STATUS_UNKNOWN");
+            }
+
+            if (deviceStatus == BatteryManager.BATTERY_STATUS_NOT_CHARGING){
+
+                //textview.setText(currentBatteryStatus+" = Not Charging at "+batteryLevel+" %");
+                batteryPercentage.setImageDrawable(getDrawable(R.drawable.rounded_default));
+                Log.d("Battery Status","= BATTERY_STATUS_NOT_CHARGING");
+            }
+
+            if(level > 90)
+                batteryPercentage.setImageResource(R.drawable.battery100);
+            else if(level > 80)
+                batteryPercentage.setImageResource(R.drawable.battery80);
+            else if(level > 70)
+                batteryPercentage.setImageResource(R.drawable.battery80);
+            else if(level > 60)
+                batteryPercentage.setImageResource(R.drawable.rounded_default);
+            else if(level > 50)
+                batteryPercentage.setImageResource(R.drawable.rounded_default);
+            else if(level > 30)
+                batteryPercentage.setImageResource(R.drawable.battery35);
+            else if(level > 20)
+                batteryPercentage.setImageResource(R.drawable.battery20);
+            else if(level > 15)
+                batteryPercentage.setImageResource(R.drawable.battery20);
+            else if(level > 10)
+                batteryPercentage.setImageResource(R.drawable.rounded_critical);
+            else if(level > 2)
+                batteryPercentage.setImageResource(R.drawable.rounded_critical);
+            else
+                batteryPercentage.setImageResource(R.drawable.battery00);
+        }
+        };
 
 
     private  Handler handler = new Handler();
@@ -228,7 +320,7 @@ public class MainActivity extends DigitalWatchFaceActivity {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault());
         //TimeZone tz = cal.getTimeZone();
         TimeZone tz = TimeZone.getDefault();
-        Log.d("Time zone","="+tz.getDisplayName());
+//        Log.d("Time zone","="+tz.getDisplayName());
 
 
 //        if(android.text.format.DateFormat.is24HourFormat(this)){
@@ -257,6 +349,10 @@ public class MainActivity extends DigitalWatchFaceActivity {
 //        sdfTimeZone.setTimeZone(tz);
 
 
+//        SimpleDateFormat timezoneSdf = new SimpleDateFormat(TIME_FORMAT_TIMEZONE);
+//        timezoneSdf.setTimeZone(tz);
+//        cTimeZone.setText(tz.getDisplayName(tz.inDaylightTime(date), TimeZone.SHORT,
+//                Locale.getDefault()));
         Date currentLocalTime = calendar.getTime();
         DateFormat date1 = new SimpleDateFormat(TIME_FORMAT_TIMEZONE);
         String localTime = date1.format(currentLocalTime);
@@ -310,8 +406,11 @@ public class MainActivity extends DigitalWatchFaceActivity {
         sdf.setTimeZone(tz);
         cSeconds.setText(sdf.format(date));
     }
-    public void setActivityBackgroundColor(int color) {
-        View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(color);
-    }
+//    public void setActivityBackgroundColor(int color)
+//    {
+////        View view = this.getWindow().getDecorView();
+////        view.setBackgroundColor(color);
+////        LinearLayout li=(LinearLayout)findViewById(R.id.myLayout);
+////        li.setBackgroundColor(color);
+//    }
 }

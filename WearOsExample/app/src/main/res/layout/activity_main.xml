@@ -2,9 +2,10 @@
 <androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/triangle1"
+    android:background="@color/black"
     android:scaleType="fitCenter"
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".MainActivity"
@@ -19,30 +20,61 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginBottom="95dp">
+            android:layout_gravity="center_vertical">
 
             <TextView
-                android:id="@+id/watchBattery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:id="@+id/textViewTimeZone"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="-05:00"
+                android:lines="2"
                 android:textColor="@color/white"
-                android:textSize="15sp"
-                android:text="20%"
-                android:textStyle="bold">
+                android:textSize="12sp"
+                android:gravity="center"
+                android:background="@drawable/circle">
             </TextView>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:layout_marginBottom="75dp"
+            android:background="@drawable/circle">
+            <ImageView
+                android:id="@+id/batteryStatus"
+                android:layout_width="20dp"
+                android:layout_height="20dp">
+            </ImageView>
+            <TextView
+                android:id="@+id/watchBattery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:text="20%"
+                android:layout_gravity="center"
+                android:textStyle="normal">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -51,14 +83,18 @@
                     android:layout_height="wrap_content"
                     android:text="10"
                     android:textColor="@color/white"
-                    android:textSize="60sp"
+                    android:layout_gravity="center"
+                    android:textSize="50sp"
                     android:textStyle="normal">
                 </TextView>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
@@ -67,8 +103,7 @@
                         android:layout_height="wrap_content"
                         android:text="00"
                         android:textColor="@color/white"
-                        android:layout_marginTop="12.5dp"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textStyle="normal">
                     </TextView>
 
@@ -78,8 +113,7 @@
                         android:layout_height="wrap_content"
                         android:text="00"
                         android:textColor="@color/white"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textStyle="normal">
                     </TextView>
                 </LinearLayout>
@@ -90,28 +124,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:layout_marginLeft="8dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewAMPM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:text="AM"
+                android:layout_gravity="center"
                 android:textColor="@color/white"
-                android:textSize="15sp">
-            </TextView>
-
-            <TextView
-                android:id="@+id/textViewTimeZone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="-05:00"
-                android:textColor="@color/white"
-                android:textSize="15sp">
+                android:textSize="12sp"
+                android:gravity="center"
+                android:background="@drawable/circle">
             </TextView>
         </LinearLayout>
 
@@ -119,17 +143,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center_horizontal|center"
-            android:layout_marginTop="85dp">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="75dp"
+            android:background="@drawable/round_rectangle">
 
             <TextView
                 android:id="@+id/currentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Wed, 4 Jul 2001"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold">
+                android:layout_gravity="center"
+                android:textColor="@color/LightSeaGreen"
+                android:textSize="12sp"
+                android:textStyle="normal">
             </TextView>
         </LinearLayout>
 
