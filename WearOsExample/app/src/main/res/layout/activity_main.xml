@@ -11,6 +11,12 @@
     tools:context=".MainActivity"
     tools:deviceIds="wear">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,8 +51,8 @@
             android:background="@drawable/circle">
             <ImageView
                 android:id="@+id/batteryStatus"
-                android:layout_width="20dp"
-                android:layout_height="20dp">
+                android:layout_width="15dp"
+                android:layout_height="18dp">
             </ImageView>
             <TextView
                 android:id="@+id/watchBattery"
@@ -154,9 +160,9 @@
                 android:layout_height="wrap_content"
                 android:text="Wed, 4 Jul 2001"
                 android:layout_gravity="center"
-                android:textColor="@color/LightSeaGreen"
+                android:textColor="@color/DarkRed"
                 android:textSize="12sp"
-                android:textStyle="normal">
+                android:textStyle="bold">
             </TextView>
         </LinearLayout>
 

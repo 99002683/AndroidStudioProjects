@@ -4,12 +4,12 @@
     android:shape="oval">
 
     <solid
-        android:color="@color/black"/>
+        android:color="@color/FullTransparent"/>
     <size
         android:width="50dp"
         android:height="50dp"/>
     <stroke
         android:width="2dp"
-        android:color="@color/dark_grey" >
+        android:color="@color/DarkGray" >
     </stroke>
 </shape>
