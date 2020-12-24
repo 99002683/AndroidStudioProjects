@@ -17,51 +17,33 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
 import static android.icu.lang.UCharacter.toUpperCase;
 import static android.support.wearable.watchface.WatchFaceService.PROPERTY_BURN_IN_PROTECTION;
 import static android.support.wearable.watchface.WatchFaceService.PROPERTY_LOW_BIT_AMBIENT;
 
 public class DigitalWatchFace {
-
-
-    private static final String TIME_FORMAT_WITHOUT_SECONDS = "%02d:%02d";
-    private static final String TIME_FORMAT_WITH_SECONDS = TIME_FORMAT_WITHOUT_SECONDS + ":%02d";
-    private static final String TIME_FORMAT_24_HOURS = "HH";
-    private static final String TIME_FORMAT_12_HOURS = "hh";       //%02d
+    private static final String TIME_FORMAT_24_HOURS = "HH";       //Use for 24 Hour Time Format
+    private static final String TIME_FORMAT_12_HOURS = "hh";     //Use for 12 Hour Time Format  //%02d
     private static final String TIME_FORMAT_MINUTES = "%02d";
     private static final String DATE_FORMAT = "%d/%02d/%02d";   //"%02d.%02d.%d"
     private static final String DAY_FORMAT = "E";
 
-    //private final Paint timePaint;
     private final Paint hourPaint, minutePaint, datePaint, backgroundPaint, dayPaint;
-    Paint heartImgPaint;
-
-//   private final Paint batteryPaint;
+//  private final Paint batteryPaint;
+//  private String batteryText = "100%";
     static Calendar mCalendar;
-
-
-    private boolean shouldShowSeconds = true;
-
-    //private String batteryText = "100%";
 
     private int mWidth;
     private int mHeight;
     private boolean mAmbient;
     private boolean mLowBitAmbient;
     private boolean mBurnInProtection;
-    Rect mRedPaddleRect;
-    private Bitmap mHeartImg, mFootstepsBitmap, mCaloriesBitmap;
+    private Bitmap mBpmBitmap, mFootstepsBitmap, mCaloriesBitmap;
 
+    public static DigitalWatchFace newInstance(Context context)     //newInstance() method of Constructor class can invoke any number of arguments.
+    {
 
-    public static DigitalWatchFace newInstance(Context context){
-
-//        Paint timePaint = new Paint();
-//        timePaint.setColor(context.getResources().getColor(R.color.primaryColorBlue));
-//        timePaint.setTextSize(context.getResources().getDimension(R.dimen.time_size));
-//        timePaint.setAntiAlias(true);
-
-        Paint hourPaint = new Paint();
+        Paint hourPaint = new Paint();      //The Paint class holds the style and color information about how to draw geometries, text and bitmaps.
         //hourPaint.setStyle(Paint.Style.STROKE);
         hourPaint.setColor(context.getResources().getColor(R.color.white));
         hourPaint.setTypeface(Typeface.SERIF);
@@ -95,54 +77,48 @@ public class DigitalWatchFace {
         Paint backgroundPaint = new Paint();
         backgroundPaint.setColor(context.getResources().getColor(R.color.black));
 
-//        Paint heartImgPaint = new Paint();
-//        heartImgPaint.setStyle(Paint.Style.FILL);
-//        heartImgPaint.setColor(Color.BLUE);
-//        heartImgPaint.setBitmap(R.drawable.heart1);
-
         //float scale = ((float) width) / (float) mBackgroundBitmap.getWidth();
         Paint heartImgPaint = new Paint();
         heartImgPaint.setColor(Color.BLACK);
         heartImgPaint.setAntiAlias(true);
-        Bitmap mHeartImg = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart4);
+        Bitmap mBpmBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart4);
         Bitmap mFootstepsBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.footsteps1);
         Bitmap mCaloriesBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.calories2);
-//        mHeartImg = Bitmap.createScaledBitmap(mHeartImg,
-//                (int) (mHeartImg.getWidth() * scale),
-//                (int) (mHeartImg.getHeight() * scale), true);
-//        //Bitmap mHeartImg = BitmapFactory.decodeResource(context.getResources(),R.drawable.heart1);
+//        mBpmBitmap = Bitmap.createScaledBitmap(mBpmBitmap,
+//                (int) (mBpmBitmap.getWidth() * scale),
+//                (int) (mBpmBitmap.getHeight() * scale), true);
+//        //Bitmap mBpmBitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.heart1);
 
 //        Paint batteryPaint = new Paint();
 //        batteryPaint.setColor(context.getResources().getColor(R.color.primaryColorBlue));
 //        batteryPaint.setTextSize(context.getResources().getDimension(R.dimen.date_size));
 //        batteryPaint.setAntiAlias(true);
 
-        return new DigitalWatchFace(hourPaint, minutePaint, datePaint, dayPaint, backgroundPaint, mHeartImg, mFootstepsBitmap, mCaloriesBitmap);    }
+        return new DigitalWatchFace(hourPaint, minutePaint, datePaint, dayPaint, backgroundPaint, mBpmBitmap, mFootstepsBitmap, mCaloriesBitmap);
+    }
 
-    DigitalWatchFace(Paint hourPaint, Paint minutePaint, Paint datePaint, Paint dayPaint, Paint backgroundPaint,Bitmap mHeartImg, Bitmap mFootstepsBitmap, Bitmap mCaloriesBitmap) {
-        //this.timePaint = timePaint;
+    DigitalWatchFace(Paint hourPaint, Paint minutePaint, Paint datePaint, Paint dayPaint, Paint backgroundPaint,Bitmap mBpmBitmap, Bitmap mFootstepsBitmap, Bitmap mCaloriesBitmap)
+    {
         this.hourPaint = hourPaint;
         this.minutePaint = minutePaint;
         this.datePaint = datePaint;
         this.dayPaint = dayPaint;
         this.backgroundPaint = backgroundPaint;
-        this.mHeartImg = mHeartImg;
+        this.mBpmBitmap = mBpmBitmap;
         this.mFootstepsBitmap = mFootstepsBitmap;
         this.mCaloriesBitmap = mCaloriesBitmap;
-        //this.heartImgPaint = heartImgPaint;
-
-//        this.batteryPaint = batteryPaint;
-
+//      this.batteryPaint = batteryPaint;
     }
 
-    public void propertiesChanged(Bundle properties){
+    public void propertiesChanged(Bundle properties)    //Called when the properties of the device are determined.
+    {
         mLowBitAmbient = properties.getBoolean(PROPERTY_LOW_BIT_AMBIENT, false);
         mBurnInProtection = properties.getBoolean(PROPERTY_BURN_IN_PROTECTION, false);
     }
 
-
-
-    public void draw(Canvas canvas, Rect bounds){
+    public void draw(Canvas canvas, Rect bounds)    //onDraw() method draws strings on the watch face.
+                                                    //When Android calls OnDraw, it passes in a Canvas instance and the bounds in which the face can be drawn.
+    {
         mWidth = canvas.getWidth();
         mHeight = canvas.getHeight();
 
@@ -154,14 +130,10 @@ public class DigitalWatchFace {
 
         canvas.drawRect(0, 0, bounds.width(), bounds.height(), backgroundPaint);
 
-//        String timeText = String.format(shouldShowSeconds ? TIME_FORMAT_WITH_SECONDS : TIME_FORMAT_WITHOUT_SECONDS, time.hour, time.minute, time.second);
-//        float timeXOffset = computeXOffset(timeText, timePaint, bounds);
-//        float timeYOffset = bounds.centerY();
-//        canvas.drawText(timeText, timeXOffset, timeYOffset, timePaint);
-
         Date date = new Date();
         TimeZone tz = TimeZone.getDefault();
 
+//      SimpleDateFormat allows to start by choosing any user-defined patterns for date-time formatting.
         SimpleDateFormat sdf = new SimpleDateFormat(TIME_FORMAT_12_HOURS);
         sdf.setTimeZone(tz);
         String hourText = String.format(sdf.format(date), sdf);
@@ -183,10 +155,7 @@ public class DigitalWatchFace {
         canvas.drawText(month, minuteXOffset + 10f, minuteYOffset + 62.f , dayPaint);
 
 
-
-        //canvas.drawBitmap(bitmap, null, mRedPaddleRect, heartImgPaint);
-        //canvas.drawBitmap(mHeartImg, 0, 0, heartImgPaint);
-        canvas.drawBitmap(mHeartImg, null, new RectF(hourXOffset + 140, 90 , 230, 110), null);
+        canvas.drawBitmap(mBpmBitmap, null, new RectF(hourXOffset + 140, 90 , 230, 110), null);
         canvas.drawBitmap(mFootstepsBitmap, null, new RectF(minuteXOffset + 140, 140 , 230, 160), null);
         canvas.drawBitmap(mCaloriesBitmap, null, new RectF(minuteXOffset + 140, 190 , 230, 220), null);
         //canvas.drawRect(0, 0, bounds.width(), bounds.height(), null);
@@ -197,47 +166,50 @@ public class DigitalWatchFace {
 
     }
 
-
-    private float computeXOffset(String text, Paint paint, Rect watchBounds) {
+    private float computeXOffset(String text, Paint paint, Rect watchBounds)
+    {
         float hourXOffset = (float) (mWidth * 0.2);
         return hourXOffset;
     }
 
-//    private float computeXOffset(String text, Paint paint, Rect watchBounds) {
+//    private float computeXOffset(String text, Paint paint, Rect watchBounds)
+//    {
 //        float centerX = watchBounds.exactCenterX();
 //        float timeLength = paint.measureText(text);
 //        return centerX - (timeLength / 2.0f);
 //    }
 
-    private float computeYOffset(String dateText, Paint datePaint) {
+    private float computeYOffset(String dateText, Paint datePaint)
+    {
         Rect textBounds = new Rect();
         datePaint.getTextBounds(dateText, 0, dateText.length(), textBounds);
         return textBounds.height() + 15.0f;
     }
 
-    public void updateTimeZoneWith(String timeZone) {
+    public void updateTimeZoneWith(String timeZone)
+    {
         mCalendar.setTimeZone(TimeZone.getDefault());
     }
-
-//    public void updateBattery(String batteryText) {
+//    public void updateBattery(String batteryText)
+//    {
 //        this.batteryText = batteryText;
 //    }
 
-
-    public void AmbientModeChanged(boolean inAmbientMode){
+    public void AmbientModeChanged(boolean inAmbientMode)
+    {
           mAmbient = inAmbientMode;
 
-          if(mLowBitAmbient){
+          if(mLowBitAmbient){    //if the watch is in low bit ambient mode:
               hourPaint.setAntiAlias(!inAmbientMode);
               minutePaint.setAntiAlias(!inAmbientMode);
               datePaint.setAntiAlias(!inAmbientMode);
               backgroundPaint.setAntiAlias(!inAmbientMode);
               dayPaint.setAntiAlias(!inAmbientMode);
           }
-
     }
 
-    public void isInAmbientMode(Canvas canvas, Rect bounds){
+    public void isInAmbientMode(Canvas canvas, Rect bounds)
+    {
         //canvas.drawColor(Color.DKGRAY);
         backgroundPaint.setColor(Color.GRAY);
         //canvas.drawRect(0, 0, bounds.width(), bounds.height(), backgroundPaint);
@@ -245,9 +217,10 @@ public class DigitalWatchFace {
         minutePaint.setColor(Color.BLACK);
         datePaint.setColor(Color.BLACK);
         dayPaint.setColor(Color.BLACK);
-
     }
-    public void isNotInAmbientMode(Canvas canvas, Rect bounds){
+
+    public void isNotInAmbientMode(Canvas canvas, Rect bounds)
+    {
         canvas.drawRect(0, 0, bounds.width(), bounds.height(), backgroundPaint);
         backgroundPaint.setColor(Color.BLACK);
         hourPaint.setColor(Color.WHITE);
@@ -255,5 +228,4 @@ public class DigitalWatchFace {
         datePaint.setColor(Color.WHITE);
         dayPaint.setColor(Color.WHITE);
     }
-
 }

@@ -21,21 +21,24 @@
             android:name=".DigitalWatchFaceService"
             android:label="@string/my_digital_name"
             android:permission="android.permission.BIND_WALLPAPER">
+<!--        Sets the android.permission.BIND_WALLPAPER permission. This permission gives the watch face service permission to change the system wallpaper on the device. -->
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/watch_face" />
+<!--            Defines a watch_face resource. This resource is a short XML file that declares a wallpaper resource -->
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview"
-                android:resource="@drawable/black2" />
+                android:resource="@drawable/digital_preview" />
+<!--            Declares a drawable image called black2 that will be displayed by the watch picker selection screen.-->
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview_circular"
-                android:resource="@drawable/black2" />
-
+                android:resource="@drawable/digital_preview" />
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
 
                 <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
             </intent-filter>
+<!--            Includes an intent-filter to let Android know that DigitalWatchFaceService will be displaying a watch face.-->
         </service>
 
         <meta-data

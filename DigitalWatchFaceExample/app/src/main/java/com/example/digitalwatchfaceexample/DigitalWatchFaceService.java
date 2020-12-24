@@ -50,12 +50,12 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
         {
             super.onCreate(holder);
 
-            setWatchFaceStyle(new WatchFaceStyle.Builder(DigitalWatchFaceService.this)
-                    .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
-                    .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_HIDDEN)
-                    .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
-                    .setShowSystemUiTime(false)
-                    .build());
+//            setWatchFaceStyle(new WatchFaceStyle.Builder(DigitalWatchFaceService.this)
+//                    .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
+//                    .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_HIDDEN)
+//                    .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
+//                    .setShowSystemUiTime(false)
+//                    .build());                //Deprecated method
             setWatchFaceStyle(new WatchFaceStyle.Builder(DigitalWatchFaceService.this).build());  //Watch face style is set here. This affects how UI elements such as the battery indicator are drawn on top of the watch face.
             timeTick = new Handler(Looper.myLooper());
             startTimerIfNecessary();
@@ -66,7 +66,8 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
         }
 
         @Override
-        public void onPropertiesChanged(Bundle properties)     // Added device features (burn-in, low-bit ambient) here
+        public void onPropertiesChanged(Bundle properties)     //Called when the properties of the device are determined.
+        // Added device features (burn-in, low-bit ambient) here
         {
             super.onPropertiesChanged(properties);
             watchFace.propertiesChanged(properties);
@@ -76,7 +77,7 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
         public void onTimeTick()     //Called periodically in ambient mode to update the time shown by the watch face. This method is called at least once per minute.
         {
             super.onTimeTick();
-            invalidate();
+            invalidate();      ///The Invalidate method schedules OnDraw to redraw the watch face.
         }
 
         @Override
@@ -91,7 +92,7 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
         {
             super.onDraw(canvas, bounds);
 
-            if (isInAmbientMode())          //isInAmbientMode() Returns whether the watch face is in ambient mode. When true, the watch face should display in white on black.
+            if (isInAmbientMode())       //isInAmbientMode() Returns whether the watch face is in ambient mode. When true, the watch face should display in white on black.
             {
                 watchFace.isInAmbientMode(canvas, bounds);
             } else {
@@ -125,14 +126,14 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
             }
         }
 
-        private final Runnable timeRunnable = new Runnable()
+        private final Runnable timeRunnable = new Runnable()     //created an anonymous implementation of Runnable. Java runnable is an interface used to execute code on a concurrent thread.
         {
             @Override
             public void run()
             {
                 onSecondTick();
 
-                if (isVisible() && !isInAmbientMode())
+                if (isVisible() && !isInAmbientMode())    //If Watch face is visible and not in Ambient Mode
                 {
                     timeTick.postDelayed(this, TICK_PERIOD_MILLIS);
                 }
@@ -146,40 +147,32 @@ public class DigitalWatchFaceService extends CanvasWatchFaceService {
 
         private void invalidateIfNecessary()
         {
-            if (isVisible() && !isInAmbientMode())
+            if (isVisible() && !isInAmbientMode())     //invalidate if the Watch face is visible and not in Ambient Mode
             {
                 invalidate();
             }
         }
 
-        private void unregisterTimeZoneReceiver()
+        private void unregisterTimeZoneReceiver()    //This method disables the Broadcast receiver
         {
             unregisterReceiver(timeZoneChangedReceiver);
             unregisterReceiver(mBatInfoReceiver);
         }
 
-//        static {
-//            intentFilter = new IntentFilter();
-//            intentFilter.addAction(Intent.ACTION_TIME_CHANGED);
-//            intentFilter.addAction(Intent.ACTION_TIME_TICK);
-//            intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-//            // intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
-//        }
-
-        private void registerTimeZoneReceiver()
+        private void registerTimeZoneReceiver()  // register BroadcastReceivers is to use the events in some way on the current activity, to inform the User of an event.
         {
 
-            IntentFilter timeZoneFilter = new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED);
+            IntentFilter timeZoneFilter = new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED);  //Used to update Time Zone changes.
             registerReceiver(timeZoneChangedReceiver, timeZoneFilter);
 
             IntentFilter batteryFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             registerReceiver(mBatInfoReceiver, batteryFilter);
         }
 
-        private BroadcastReceiver timeZoneChangedReceiver = new BroadcastReceiver()
+        private BroadcastReceiver timeZoneChangedReceiver = new BroadcastReceiver()   //Broadcast Receivers simply respond to broadcast events or intents from other applications or from the system itself.
         {
             @Override
-            public void onReceive(Context context, Intent intent)
+            public void onReceive(Context context, Intent intent)     //onReceive() method where each message is received as a Intent object parameter. Here Added to Update Time Zone.
             {
                 DigitalWatchFace.mCalendar.setTimeZone(TimeZone.getDefault());
                 invalidate();
