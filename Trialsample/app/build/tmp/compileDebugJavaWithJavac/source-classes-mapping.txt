@@ -1,0 +1,9 @@
+com/example/trialsample/BuildConfig.java
+ com.example.trialsample.BuildConfig
+com/example/trialsample/WatchFaceActivity.java
+ com.example.trialsample.WatchFaceActivity
+com/example/trialsample/MainActivity.java
+ com.example.trialsample.MainActivity
+ com.example.trialsample.MainActivity$1
+ com.example.trialsample.MainActivity$2
+ com.example.trialsample.MainActivity$3

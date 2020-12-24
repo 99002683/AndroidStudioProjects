@@ -1,0 +1,4 @@
+com/example/tempsensorsample/MainActivity.java
+ com.example.tempsensorsample.MainActivity
+com/example/tempsensorsample/BuildConfig.java
+ com.example.tempsensorsample.BuildConfig

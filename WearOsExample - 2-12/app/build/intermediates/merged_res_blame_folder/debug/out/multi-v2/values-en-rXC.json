@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\99002683\\AndroidStudioProjects\\WearOsExample\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rXC\\values-en-rXC.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\99002683\\.gradle\\caches\\transforms-2\\files-2.1\\d5d7cbb2b54934ab26230a532f16fddc\\wear-1.0.0\\res\\values-en-rXC\\values-en-rXC.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,264",
+                        "endColumns": "208,218",
+                        "endOffsets": "259,478"
+                    },
+                    "to": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "258,467",
+                        "endColumns": "208,218",
+                        "endOffsets": "462,681"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\99002683\\.gradle\\caches\\transforms-2\\files-2.1\\73530a2d0c1df4b3085807c82555ce12\\core-1.1.0\\res\\values-en-rXC\\values-en-rXC.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "202",
+                        "endOffsets": "253"
+                    }
+                }
+            ]
+        }
+    ]
+}

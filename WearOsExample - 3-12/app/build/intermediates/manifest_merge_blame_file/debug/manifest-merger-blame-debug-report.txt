@@ -1,0 +1,90 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.wearosexample"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+8-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.WAKE_LOCK" />
+11-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:5:5-68
+11-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:5:22-65
+12
+13    <uses-feature android:name="android.hardware.type.watch" />
+13-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:7:5-64
+13-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:7:19-61
+14
+15    <application
+15-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:9:5-36:19
+16        android:allowBackup="true"
+16-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:10:9-35
+17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+17-->[androidx.core:core:1.1.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\73530a2d0c1df4b3085807c82555ce12\core-1.1.0\AndroidManifest.xml:24:18-86
+18        android:debuggable="true"
+19        android:extractNativeLibs="false"
+20        android:icon="@mipmap/ic_launcher"
+20-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:11:9-43
+21        android:label="@string/app_name"
+21-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:12:9-41
+22        android:supportsRtl="true"
+22-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:13:9-35
+23        android:testOnly="true"
+24        android:theme="@android:style/Theme.DeviceDefault" >
+24-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:14:9-59
+25        <uses-library
+25-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:15:9-17:39
+26            android:name="com.google.android.wearable"
+26-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:16:13-55
+27            android:required="true" />
+27-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:17:13-36
+28
+29        <!--
+30               Set to true if your app is Standalone, that is, it does not require the handheld
+31               app to run.
+32        -->
+33        <meta-data
+33-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:23:9-25:36
+34            android:name="com.google.android.wearable.standalone"
+34-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:24:13-66
+35            android:value="true" />
+35-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:25:13-33
+36
+37        <activity
+37-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:27:9-35:20
+38            android:name="com.example.wearosexample.MainActivity"
+38-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:28:13-41
+39            android:label="@string/app_name" >
+39-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:29:13-45
+40            <intent-filter>
+40-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:30:13-34:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:31:17-69
+41-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:31:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:33:17-77
+43-->C:\Users\99002683\AndroidStudioProjects\WearOsExample\app\src\main\AndroidManifest.xml:33:27-74
+44            </intent-filter>
+45        </activity>
+46        <activity
+46-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\4858ba8f6e273fdf2dcb9d88023c9534\jetified-play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+47            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+47-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\4858ba8f6e273fdf2dcb9d88023c9534\jetified-play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+48            android:exported="false"
+48-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\4858ba8f6e273fdf2dcb9d88023c9534\jetified-play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+49            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+49-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\4858ba8f6e273fdf2dcb9d88023c9534\jetified-play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+50
+51        <meta-data
+51-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\f46279d3478497538e817a8da381f082\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+52            android:name="com.google.android.gms.version"
+52-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\f46279d3478497538e817a8da381f082\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+53            android:value="@integer/google_play_services_version" />
+53-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\f46279d3478497538e817a8da381f082\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+54    </application>
+55
+56</manifest>

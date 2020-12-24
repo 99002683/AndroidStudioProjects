@@ -1,0 +1,6 @@
+com/example/bpmcalculator/MainActivity.java
+ com.example.bpmcalculator.MainActivity
+ com.example.bpmcalculator.MainActivity$1
+ com.example.bpmcalculator.MainActivity$2
+com/example/bpmcalculator/BuildConfig.java
+ com.example.bpmcalculator.BuildConfig

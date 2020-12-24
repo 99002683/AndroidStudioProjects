@@ -1,0 +1,9 @@
+com/example/digitalwatchfaceexample2/BuildConfig.java
+ com.example.digitalwatchfaceexample2.BuildConfig
+com/example/digitalwatchfaceexample2/MyWatchFace.java
+ com.example.digitalwatchfaceexample2.MyWatchFace
+ com.example.digitalwatchfaceexample2.MyWatchFace$1
+ com.example.digitalwatchfaceexample2.MyWatchFace$Engine
+ com.example.digitalwatchfaceexample2.MyWatchFace$Engine$1
+ com.example.digitalwatchfaceexample2.MyWatchFace$Engine$2
+ com.example.digitalwatchfaceexample2.MyWatchFace$EngineHandler

@@ -1,0 +1,4 @@
+com/example/compassexample/BuildConfig.java
+ com.example.compassexample.BuildConfig
+com/example/compassexample/MainActivity.java
+ com.example.compassexample.MainActivity

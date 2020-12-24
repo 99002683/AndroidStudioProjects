@@ -1,0 +1,4 @@
+com/example/shapes1/MainActivity.java
+ com.example.shapes1.MainActivity
+com/example/shapes1/BuildConfig.java
+ com.example.shapes1.BuildConfig

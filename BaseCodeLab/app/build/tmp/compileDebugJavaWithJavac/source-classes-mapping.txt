@@ -1,0 +1,8 @@
+com/example/basecodelab/BuildConfig.java
+ com.example.basecodelab.BuildConfig
+com/example/basecodelab/MyWatchFace.java
+ com.example.basecodelab.MyWatchFace
+ com.example.basecodelab.MyWatchFace$1
+ com.example.basecodelab.MyWatchFace$Engine
+ com.example.basecodelab.MyWatchFace$Engine$1
+ com.example.basecodelab.MyWatchFace$Engine$2

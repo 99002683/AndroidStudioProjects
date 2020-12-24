@@ -1,0 +1,114 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.watchfacesamplefromstudio"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+8-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml
+10
+11    <!-- Required to act as a custom watch face. -->
+12    <uses-permission android:name="android.permission.WAKE_LOCK" />
+12-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:6:5-68
+12-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:6:22-65
+13
+14    <!-- Required for complications to receive complication data and open the provider chooser. -->
+15    <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA" />
+15-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:9:5-104
+15-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:9:22-101
+16
+17    <uses-feature android:name="android.hardware.type.watch" />
+17-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:11:5-64
+17-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:11:19-61
+18
+19    <application
+19-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:13:5-47:19
+20        android:allowBackup="true"
+20-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:14:9-35
+21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+21-->[androidx.core:core:1.2.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\4f3d7d743df13c1af889a0942a35670d\core-1.2.0\AndroidManifest.xml:24:18-86
+22        android:debuggable="true"
+23        android:extractNativeLibs="false"
+24        android:icon="@mipmap/ic_launcher"
+24-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:15:9-43
+25        android:label="@string/app_name"
+25-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:16:9-41
+26        android:supportsRtl="true"
+26-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:17:9-35
+27        android:testOnly="true"
+28        android:theme="@android:style/Theme.DeviceDefault" >
+28-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:18:9-59
+29        <meta-data
+29-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:19:9-21:36
+30            android:name="com.google.android.wearable.standalone"
+30-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:20:13-66
+31            android:value="true" />
+31-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:21:13-33
+32
+33        <service
+33-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:23:9-42:19
+34            android:name="com.example.watchfacesamplefromstudio.MyWatchFace"
+34-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:24:13-40
+35            android:label="@string/my_analog_name"
+35-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:25:13-51
+36            android:permission="android.permission.BIND_WALLPAPER" >
+36-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:26:13-67
+37            <meta-data
+37-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:27:13-29:54
+38                android:name="android.service.wallpaper"
+38-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:28:17-57
+39                android:resource="@xml/watch_face" />
+39-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:29:17-51
+40            <meta-data
+40-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:30:13-32:66
+41                android:name="com.google.android.wearable.watchface.preview"
+41-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:31:17-77
+42                android:resource="@drawable/custom_background" />
+42-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:32:17-63
+43            <meta-data
+43-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:33:13-35:66
+44                android:name="com.google.android.wearable.watchface.preview_circular"
+44-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:34:17-86
+45                android:resource="@drawable/custom_background" />
+45-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:35:17-63
+46
+47            <intent-filter>
+47-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:37:13-41:29
+48                <action android:name="android.service.wallpaper.WallpaperService" />
+48-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:38:17-85
+48-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:38:25-82
+49
+50                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
+50-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:40:17-102
+50-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:40:27-99
+51            </intent-filter>
+52        </service>
+53
+54        <meta-data
+54-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:44:9-46:69
+55            android:name="com.google.android.gms.version"
+55-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:45:13-58
+56            android:value="@integer/google_play_services_version" />
+56-->C:\Users\99002683\AndroidStudioProjects\WatchfaceSampleFromStudio\app\src\main\AndroidManifest.xml:46:13-66
+57
+58        <uses-library
+58-->[com.google.android.support:wearable:2.6.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\eddc034b691ac65c120a9399734e4bd2\jetified-wearable-2.6.0\AndroidManifest.xml:10:9-12:40
+59            android:name="com.google.android.wearable"
+59-->[com.google.android.support:wearable:2.6.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\eddc034b691ac65c120a9399734e4bd2\jetified-wearable-2.6.0\AndroidManifest.xml:11:13-55
+60            android:required="false" />
+60-->[com.google.android.support:wearable:2.6.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\eddc034b691ac65c120a9399734e4bd2\jetified-wearable-2.6.0\AndroidManifest.xml:12:13-37
+61
+62        <activity
+62-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\2aca67bc5a35a2346181881fe4af1f07\jetified-play-services-base-17.2.1\AndroidManifest.xml:23:9-26:75
+63            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+63-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\2aca67bc5a35a2346181881fe4af1f07\jetified-play-services-base-17.2.1\AndroidManifest.xml:24:13-79
+64            android:exported="false"
+64-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\2aca67bc5a35a2346181881fe4af1f07\jetified-play-services-base-17.2.1\AndroidManifest.xml:25:13-37
+65            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+65-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\2aca67bc5a35a2346181881fe4af1f07\jetified-play-services-base-17.2.1\AndroidManifest.xml:26:13-72
+66    </application>
+67
+68</manifest>

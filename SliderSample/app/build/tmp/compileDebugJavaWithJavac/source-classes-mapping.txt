@@ -1,0 +1,6 @@
+com/example/slidersample/BuildConfig.java
+ com.example.slidersample.BuildConfig
+com/example/slidersample/ImageAdapter.java
+ com.example.slidersample.ImageAdapter
+com/example/slidersample/MainActivity.java
+ com.example.slidersample.MainActivity

@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\xml_watch_face.xml.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\xml\\watch_face.xml"
+    },
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi_watchface_service_bg.png.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\drawable-nodpi\\watchface_service_bg.png"
+    },
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi_black2.png.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\drawable-nodpi\\black2.png"
+    },
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\drawable-nodpi_preview_analog.png.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\drawable-nodpi\\preview_analog.png"
+    },
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\99002683\\AndroidStudioProjects\\DigitalWatchFaceExample2\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    }
+]

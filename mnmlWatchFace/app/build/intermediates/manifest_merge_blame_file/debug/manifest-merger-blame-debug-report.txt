@@ -1,0 +1,161 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.mnmlwatchface"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+8-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml
+10
+11    <!-- Required to act as a custom watch face. -->
+12    <uses-permission android:name="android.permission.WAKE_LOCK" />
+12-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:6:5-68
+12-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:6:22-65
+13
+14    <!-- Required for complications to receive complication data and open the provider chooser. -->
+15    <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA" />
+15-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:9:5-104
+15-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:9:22-101
+16
+17    <uses-feature android:name="android.hardware.type.watch" />
+17-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:11:5-64
+17-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:11:19-61
+18
+19    <application
+19-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:13:5-83:19
+20        android:allowBackup="true"
+20-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:14:9-35
+21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+21-->[androidx.core:core:1.2.0] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\4f3d7d743df13c1af889a0942a35670d\core-1.2.0\AndroidManifest.xml:24:18-86
+22        android:debuggable="true"
+23        android:extractNativeLibs="false"
+24        android:icon="@mipmap/ic_launcher"
+24-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:15:9-43
+25        android:label="@string/app_name"
+25-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:16:9-41
+26        android:supportsRtl="true"
+26-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:17:9-35
+27        android:testOnly="true"
+28        android:theme="@android:style/Theme.DeviceDefault" >
+28-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:18:9-59
+29        <meta-data
+29-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:19:9-21:35
+30            android:name="com.google.android.wearable.standalone"
+30-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:20:13-66
+31            android:value="true" />
+31-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:21:13-33
+32
+33        <activity android:name="android.support.wearable.complications.ComplicationHelperActivity" />
+33-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:23:9-101
+33-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:23:19-99
+34
+35        <meta-data
+35-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:25:9-29:70
+36            android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
+36-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:26:13-111
+37            android:value="it.denv.mnmlwatchface.MyWatchFace.CONFIG_DIGITAL" />
+37-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:28:13-95
+38
+39        <activity
+39-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:31:9-33:64
+40            android:name="com.example.mnmlwatchface.WatchConfigColorActivity"
+40-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:32:13-53
+41            android:label="@string/digital_config_color_name" />
+41-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:33:13-62
+42        <activity
+42-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:35:9-45:20
+43            android:name="com.example.mnmlwatchface.WatchConfigActivity"
+43-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:36:13-48
+44            android:label="@string/digital_config_name" >
+44-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:37:13-56
+45            <intent-filter>
+45-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:38:13-44:29
+46                <action android:name="it.denv.mnmlwatchface.MyWatchFace.CONFIG_DIGITAL" />
+46-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:39:17-40:74
+46-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:39:25-110
+47
+48                <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
+48-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:41:17-42:95
+48-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:41:27-133
+49                <category android:name="android.intent.category.DEFAULT" />
+49-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:43:17-76
+49-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:43:27-73
+50            </intent-filter>
+51        </activity>
+52
+53        <service
+53-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:48:9-74:19
+54            android:name="com.example.mnmlwatchface.MyWatchFace"
+54-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:49:13-40
+55            android:label="@string/my_digital_name"
+55-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:50:13-52
+56            android:permission="android.permission.BIND_WALLPAPER" >
+56-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:51:13-67
+57            <meta-data
+57-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:52:13-54:53
+58                android:name="android.service.wallpaper"
+58-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:53:17-57
+59                android:resource="@xml/watch_face" />
+59-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:54:17-51
+60            <meta-data
+60-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:55:13-57:63
+61                android:name="com.google.android.wearable.watchface.preview"
+61-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:56:17-77
+62                android:resource="@drawable/preview_digital" />
+62-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:57:17-61
+63            <meta-data
+63-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:58:13-60:72
+64                android:name="com.google.android.wearable.watchface.preview_circular"
+64-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:59:17-86
+65                android:resource="@drawable/preview_digital_circular" />
+65-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:60:17-70
+66            <meta-data
+66-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:25:9-29:70
+67                android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
+67-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:26:13-111
+68                android:value="it.denv.mnmlwatchface.MyWatchFace.CONFIG_DIGITAL" />
+68-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:28:13-95
+69
+70            <intent-filter>
+70-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:69:13-73:29
+71                <action android:name="android.service.wallpaper.WallpaperService" />
+71-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:70:17-84
+71-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:70:25-82
+72
+73                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
+73-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:71:17-101
+73-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:71:27-99
+74                <category android:name="it.denv.mnmlwatchface.THEME_CHANGED" />
+74-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:72:17-79
+74-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:72:27-77
+75            </intent-filter>
+76        </service>
+77
+78        <meta-data
+78-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:76:9-78:68
+79            android:name="com.google.android.gms.version"
+79-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:77:13-58
+80            android:value="@integer/google_play_services_version" />
+80-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:78:13-66
+81
+82        <uses-library
+82-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:80:9-82:38
+83            android:name="com.google.android.wearable"
+83-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:81:13-55
+84            android:required="true" />
+84-->C:\Users\99002683\AndroidStudioProjects\mnmlWatchFace\app\src\main\AndroidManifest.xml:82:13-36
+85
+86        <activity
+86-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\2aca67bc5a35a2346181881fe4af1f07\jetified-play-services-base-17.2.1\AndroidManifest.xml:23:9-26:75
+87            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+87-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\2aca67bc5a35a2346181881fe4af1f07\jetified-play-services-base-17.2.1\AndroidManifest.xml:24:13-79
+88            android:exported="false"
+88-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\2aca67bc5a35a2346181881fe4af1f07\jetified-play-services-base-17.2.1\AndroidManifest.xml:25:13-37
+89            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+89-->[com.google.android.gms:play-services-base:17.2.1] C:\Users\99002683\.gradle\caches\transforms-2\files-2.1\2aca67bc5a35a2346181881fe4af1f07\jetified-play-services-base-17.2.1\AndroidManifest.xml:26:13-72
+90    </application>
+91
+92</manifest>

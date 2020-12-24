@@ -1,0 +1,6 @@
+com/example/androidgraphics/BuildConfig.java
+ com.example.androidgraphics.BuildConfig
+com/example/androidgraphics/MainActivity.java
+ com.example.androidgraphics.MainActivity
+com/example/androidgraphics/MyView.java
+ com.example.androidgraphics.MyView

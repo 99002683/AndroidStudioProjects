@@ -1,0 +1,13 @@
+com/example/watchfacesample2/WatchFaceService.java
+ com.example.watchfacesample2.WatchFaceService
+ com.example.watchfacesample2.WatchFaceService$1
+ com.example.watchfacesample2.WatchFaceService$SimpleEngine
+ com.example.watchfacesample2.WatchFaceService$SimpleEngine$1
+ com.example.watchfacesample2.WatchFaceService$SimpleEngine$2
+ com.example.watchfacesample2.WatchFaceService$SimpleEngine$3
+ com.example.watchfacesample2.WatchFaceService$SimpleEngine$4
+ com.example.watchfacesample2.WatchFaceService$SimpleEngine$5
+com/project/androidwearexample/BuildConfig.java
+ com.project.androidwearexample.BuildConfig
+com/example/watchfacesample2/WatchFaceView.java
+ com.example.watchfacesample2.WatchFaceView

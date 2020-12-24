@@ -1,0 +1,9 @@
+com/example/wearosexample/BuildConfig.java
+ com.example.wearosexample.BuildConfig
+com/example/wearosexample/MainActivity.java
+ com.example.wearosexample.MainActivity
+ com.example.wearosexample.MainActivity$1
+ com.example.wearosexample.MainActivity$2
+ com.example.wearosexample.MainActivity$3
+com/example/wearosexample/DigitalWatchFaceActivity.java
+ com.example.wearosexample.DigitalWatchFaceActivity
