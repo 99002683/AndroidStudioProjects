@@ -117,9 +117,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private float sMinuteHandLength;
         private float sHourHandLength;
         /* Colors for all hands (hour, minute, seconds, ticks) based on photo loaded. */
-        private int mWatchHandColor;
-        private int mWatchHandHighlightColor;
-        private int mWatchHandShadowColor;
+        private int mTimePaintColor;
+        private int mSecondStickPaintColor;
+        private int mPaintShadowColor;
         private Paint mTimePaint, mDatePaint, mBatteryPaint, mSecondStickPaint;
         private Paint mHourPaint;
         private Paint mMinutePaint;
@@ -165,9 +165,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 @Override
                 public void onGenerated(Palette palette) {
                     if (palette != null) {
-//                        mWatchHandHighlightColor = palette.getVibrantColor(Color.RED);
-//                        mWatchHandColor = palette.getLightVibrantColor(Color.WHITE);
-//                        mWatchHandShadowColor = palette.getDarkMutedColor(Color.BLACK);
+                        mSecondStickPaintColor = palette.getVibrantColor(Color.RED);
+                        mTimePaintColor = palette.getLightVibrantColor(Color.WHITE);
+                        mPaintShadowColor = palette.getDarkMutedColor(getResources().getColor(R.color.White));
                         updateWatchHandStyle();
                     }
                 }
@@ -176,9 +176,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
         private void initializeWatchFace() {
             /* Set defaults for colors */
-//            mWatchHandColor = Color.WHITE;
-//            mWatchHandHighlightColor = Color.RED;
-//            mWatchHandShadowColor = Color.BLACK;
+            mTimePaintColor = Color.WHITE;
+            mSecondStickPaintColor = Color.RED;
+            mPaintShadowColor = getResources().getColor(R.color.White);
 
             mTimePaint = new Paint();
             mTimePaint.setColor(getResources().getColor(R.color.white));
@@ -198,7 +198,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             mBatteryPaint.setAntiAlias(true);
 
             mSecondStickPaint = new Paint();
-            mSecondStickPaint.setColor(getResources().getColor(R.color.red));
+            mSecondStickPaint.setColor(getResources().getColor(R.color.Red));
             mSecondStickPaint.setStrokeWidth(3);
             mSecondStickPaint.setAntiAlias(true);
         }
@@ -235,36 +235,34 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
         private void updateWatchHandStyle() {
             if (mAmbient) {
-//                mHourPaint.setColor(Color.WHITE);
-//                mMinutePaint.setColor(Color.WHITE);
-//                mSecondPaint.setColor(Color.WHITE);
-//                mTickAndCirclePaint.setColor(Color.WHITE);
-//
-//                mHourPaint.setAntiAlias(false);
-//                mMinutePaint.setAntiAlias(false);
-//                mSecondPaint.setAntiAlias(false);
-//                mTickAndCirclePaint.setAntiAlias(false);
-//
-//                mHourPaint.clearShadowLayer();
-//                mMinutePaint.clearShadowLayer();
-//                mSecondPaint.clearShadowLayer();
-//                mTickAndCirclePaint.clearShadowLayer();
+                mTimePaint.setColor(getResources().getColor(R.color.SlateGray));
+                mDatePaint.setColor(getResources().getColor(R.color.SlateGray));
+                mSecondStickPaint.setColor(getResources().getColor(R.color.LightCoral));
+
+                mTimePaint.setAntiAlias(true);
+                mDatePaint.setAntiAlias(true);
+                mSecondStickPaint.setAntiAlias(true);
+
+                mTimePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
+                mDatePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
+                mSecondStickPaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
 
             } else {
-//                mHourPaint.setColor(mWatchHandColor);
-//                mMinutePaint.setColor(mWatchHandColor);
-//                mSecondPaint.setColor(mWatchHandHighlightColor);
-//                mTickAndCirclePaint.setColor(mWatchHandColor);
-//
-//                mHourPaint.setAntiAlias(true);
-//                mMinutePaint.setAntiAlias(true);
-//                mSecondPaint.setAntiAlias(true);
-//                mTickAndCirclePaint.setAntiAlias(true);
-//
-//                mHourPaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mWatchHandShadowColor);
-//                mMinutePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mWatchHandShadowColor);
-//                mSecondPaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mWatchHandShadowColor);
-//                mTickAndCirclePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mWatchHandShadowColor);
+                mTimePaint.setColor(mTimePaintColor);
+                mDatePaint.setColor(mTimePaintColor);
+                mSecondStickPaint.setColor(mSecondStickPaintColor);
+
+                mTimePaint.setAntiAlias(true);
+                mDatePaint.setAntiAlias(true);
+                mSecondStickPaint.setAntiAlias(true);
+
+                mTimePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
+                mDatePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
+                mSecondStickPaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
+
+                mTimePaint.clearShadowLayer();
+                mDatePaint.clearShadowLayer();
+                mSecondStickPaint.clearShadowLayer();
             }
         }
 
@@ -276,9 +274,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             /* Dim display in mute mode. */
             if (mMuteMode != inMuteMode) {
                 mMuteMode = inMuteMode;
-//                mHourPaint.setAlpha(inMuteMode ? 100 : 255);
-//                mMinutePaint.setAlpha(inMuteMode ? 100 : 255);
-//                mSecondPaint.setAlpha(inMuteMode ? 80 : 255);
+                mTimePaint.setAlpha(inMuteMode ? 100 : 255);
+                mDatePaint.setAlpha(inMuteMode ? 100 : 255);
+                mSecondStickPaint.setAlpha(inMuteMode ? 80 : 255);
                 invalidate();
             }
         }
@@ -466,7 +464,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             mCalendar = Calendar.getInstance();
             Date date = new Date();
             TimeZone tz = TimeZone.getDefault();
-            //time.setToNow();
+
             //canvas.drawRect(0, 0, bounds.width(), bounds.height(), backgroundPaint);
 
             String timeText1 = String.format(shouldShowSeconds ? TIME_FORMAT_WITH_SECONDS : TIME_FORMAT_WITHOUT_SECONDS, mCalendar.get(Calendar.HOUR),mCalendar.get(Calendar.MINUTE),mCalendar.get(Calendar.SECOND));
@@ -511,8 +509,6 @@ public class MyWatchFace extends CanvasWatchFaceService {
         public void updateTimeZoneWith(String timeZone) {
             mCalendar.setTimeZone(TimeZone.getDefault());
             mCalendar = Calendar.getInstance();
-//            time.clear(timeZone);
-//            time.setToNow();
         }
 
         public void updateBattery(String batteryText) {
