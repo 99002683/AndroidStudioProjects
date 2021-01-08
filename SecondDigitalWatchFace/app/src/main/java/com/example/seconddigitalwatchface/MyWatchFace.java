@@ -132,6 +132,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private static final String TIME_FORMAT_WITHOUT_SECONDS = "%02d:%02d";
         private static final String TIME_FORMAT_WITH_SECONDS = TIME_FORMAT_WITHOUT_SECONDS + ":%02d";
         private static final String DATE_FORMAT = "EEE, d MMM yyyy"; //"%02d.%02d.%d";
+        private static final String TIME_FORMAT_24_HOUR = "HH:mm";
+        private static final String TIME_FORMAT_12_HOUR = "hh:mm";
         private String batteryText = "100%";
 
 
@@ -229,6 +231,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
         private void updateWatchHandStyle() {
             if (mAmbient) {
+
+                initGrayBackgroundBitmap();
                 mTimePaint.setColor(getResources().getColor(R.color.SlateGray));
                 mDatePaint.setColor(getResources().getColor(R.color.SlateGray));
                 mSecondStickPaint.setColor(getResources().getColor(R.color.LightCoral));
@@ -384,13 +388,16 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
             String timeText1 = String.format(shouldShowSeconds ? TIME_FORMAT_WITH_SECONDS : TIME_FORMAT_WITHOUT_SECONDS, mCalendar.get(Calendar.HOUR),mCalendar.get(Calendar.MINUTE),mCalendar.get(Calendar.SECOND));
             String timeText2 = String.format(TIME_FORMAT_WITHOUT_SECONDS, mCalendar.get(Calendar.HOUR),mCalendar.get(Calendar.MINUTE));
-            float timeXOffset = computeXOffset(timeText2, mTimePaint, bounds);
+            SimpleDateFormat sdf1 = new SimpleDateFormat(TIME_FORMAT_24_HOUR);
+            sdf1.setTimeZone(tz);
+            String timeText3 = String.format(sdf1.format(date), sdf1);
+            float timeXOffset = computeXOffset(timeText3, mTimePaint, bounds);
             float timeYOffset = bounds.centerY();
-            canvas.drawText(timeText2, timeXOffset, timeYOffset, mTimePaint);
+            canvas.drawText(timeText3, timeXOffset, timeYOffset, mTimePaint);
 
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-            sdf.setTimeZone(tz);
-            String dateText = String.format(sdf.format(date), sdf);
+            SimpleDateFormat sdf2 = new SimpleDateFormat(DATE_FORMAT);
+            sdf2.setTimeZone(tz);
+            String dateText = String.format(sdf2.format(date), sdf2);
             //String dateText = String.format(DATE_FORMAT, mCalendar.get(Calendar.DAY_OF_MONTH), (mCalendar.get(Calendar.MONTH)+1), mCalendar.get(Calendar.YEAR));
             float dateXOffset = computeXOffset(dateText, mDatePaint, bounds);
             float dateYOffset = computeYOffset(dateText, mDatePaint);
