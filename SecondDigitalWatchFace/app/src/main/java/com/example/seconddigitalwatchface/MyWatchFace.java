@@ -84,11 +84,6 @@ public class MyWatchFace extends CanvasWatchFaceService {
     }
 
     private class Engine extends CanvasWatchFaceService.Engine {
-        private static final float HOUR_STROKE_WIDTH = 5f;
-        private static final float MINUTE_STROKE_WIDTH = 3f;
-        private static final float SECOND_TICK_STROKE_WIDTH = 2f;
-
-        private static final float CENTER_GAP_AND_CIRCLE_RADIUS = 4f;
 
         private static final int SHADOW_RADIUS = 6;
         /* Handler to update the time once a second in interactive mode. */
@@ -131,7 +126,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private boolean shouldShowSeconds = true;
         private static final String TIME_FORMAT_WITHOUT_SECONDS = "%02d:%02d";
         private static final String TIME_FORMAT_WITH_SECONDS = TIME_FORMAT_WITHOUT_SECONDS + ":%02d";
-        private static final String DATE_FORMAT = "EEE, d MMM yyyy"; //"%02d.%02d.%d";
+        private static final String DATE_FORMAT = "EEE, d MMM yyyy";  //"%02d.%02d.%d";
         private static final String TIME_FORMAT_24_HOUR = "HH:mm";
         private static final String TIME_FORMAT_12_HOUR = "hh:mm";
         private String batteryText = "100%";
@@ -163,7 +158,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
                     if (palette != null) {
                         mSecondStickPaintColor = palette.getVibrantColor(Color.RED);
                         mTimePaintColor = palette.getLightVibrantColor(Color.WHITE);
-                        mPaintShadowColor = palette.getDarkMutedColor(getResources().getColor(R.color.White));
+                        mPaintShadowColor = palette.getDarkMutedColor(getResources().getColor(R.color.DarkCyan));
                         updateWatchHandStyle();
                     }
                 }
@@ -174,7 +169,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             /* Set defaults for colors */
             mTimePaintColor = Color.WHITE;
             mSecondStickPaintColor = Color.RED;
-            mPaintShadowColor = getResources().getColor(R.color.White);
+            mPaintShadowColor = getResources().getColor(R.color.DarkCyan);
 
             mTimePaint = new Paint();
             mTimePaint.setColor(getResources().getColor(R.color.white));
@@ -213,7 +208,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
         }
 
         @Override
-        public void onTimeTick() {
+        public void onTimeTick()
+        {
             super.onTimeTick();
             invalidate();
         }
@@ -254,9 +250,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 mDatePaint.setAntiAlias(true);
                 mSecondStickPaint.setAntiAlias(true);
 
-                mTimePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
-                mDatePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
-                mSecondStickPaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
+//                mTimePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
+//                mDatePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
+//                mSecondStickPaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mPaintShadowColor);
 
                 mTimePaint.clearShadowLayer();
                 mDatePaint.clearShadowLayer();
@@ -388,7 +384,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
             String timeText1 = String.format(shouldShowSeconds ? TIME_FORMAT_WITH_SECONDS : TIME_FORMAT_WITHOUT_SECONDS, mCalendar.get(Calendar.HOUR),mCalendar.get(Calendar.MINUTE),mCalendar.get(Calendar.SECOND));
             String timeText2 = String.format(TIME_FORMAT_WITHOUT_SECONDS, mCalendar.get(Calendar.HOUR),mCalendar.get(Calendar.MINUTE));
-            SimpleDateFormat sdf1 = new SimpleDateFormat(TIME_FORMAT_24_HOUR);
+            SimpleDateFormat sdf1 = new SimpleDateFormat(TIME_FORMAT_12_HOUR);
             sdf1.setTimeZone(tz);
             String timeText3 = String.format(sdf1.format(date), sdf1);
             float timeXOffset = computeXOffset(timeText3, mTimePaint, bounds);
