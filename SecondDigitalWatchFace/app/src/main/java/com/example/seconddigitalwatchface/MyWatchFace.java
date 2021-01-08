@@ -106,25 +106,19 @@ public class MyWatchFace extends CanvasWatchFaceService {
             @Override
             public void onReceive(Context arg0, Intent intent)
             {
-                updateBattery(String.valueOf(intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) + "%"));
+                updateBattery(intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) + "%");
             }
         };
         private boolean mRegisteredTimeZoneReceiver = false;
         private boolean mMuteMode;
-        private float mCenterX;
-        private float mCenterY;
-        private float mSecondHandLength;
-        private float sMinuteHandLength;
-        private float sHourHandLength;
         /* Colors for all hands (hour, minute, seconds, ticks) based on photo loaded. */
         private int mTimePaintColor;
         private int mSecondStickPaintColor;
         private int mPaintShadowColor;
-        private Paint mTimePaint, mDatePaint, mBatteryPaint, mSecondStickPaint;
-        private Paint mHourPaint;
-        private Paint mMinutePaint;
-        private Paint mSecondPaint;
-        private Paint mTickAndCirclePaint;
+        private Paint mTimePaint;
+        private Paint mDatePaint;
+        private Paint mBatteryPaint;
+        private Paint mSecondStickPaint;
         private Paint mBackgroundPaint;
         private Bitmap mBackgroundBitmap;
         private Bitmap mGrayBackgroundBitmap;
@@ -285,21 +279,6 @@ public class MyWatchFace extends CanvasWatchFaceService {
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
 
-            /*
-             * Find the coordinates of the center point on the screen, and ignore the window
-             * insets, so that, on round watches with a "chin", the watch face is centered on the
-             * entire screen, not just the usable portion.
-             */
-//            mCenterX = width / 2f;
-//            mCenterY = height / 2f;
-
-            /*
-             * Calculate lengths of different hands based on watch screen size.
-             */
-//            mSecondHandLength = (float) (mCenterX * 0.875);
-//            sMinuteHandLength = (float) (mCenterX * 0.75);
-//            sHourHandLength = (float) (mCenterX * 0.5);
-
             /* Scale loaded background image (more efficient) if surface dimensions change. */
             float scale = ((float) width) / (float) mBackgroundBitmap.getWidth();
 
@@ -352,8 +331,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 case TAP_TYPE_TAP:
                     // The user has completed the tap gesture.
                     // TODO: Add code to handle the tap gesture.
-                    Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT).show();
                     break;
             }
             invalidate();
@@ -386,74 +364,11 @@ public class MyWatchFace extends CanvasWatchFaceService {
              * cases where you want to allow users to select their own photos, this dynamically
              * creates them on top of the photo.
              */
-//            float innerTickRadius = mCenterX - 10;
-//            float outerTickRadius = mCenterX;
-//            for (int tickIndex = 0; tickIndex < 12; tickIndex++) {
-//                float tickRot = (float) (tickIndex * Math.PI * 2 / 12);
-//                float innerX = (float) Math.sin(tickRot) * innerTickRadius;
-//                float innerY = (float) -Math.cos(tickRot) * innerTickRadius;
-//                float outerX = (float) Math.sin(tickRot) * outerTickRadius;
-//                float outerY = (float) -Math.cos(tickRot) * outerTickRadius;
-//                canvas.drawLine(mCenterX + innerX, mCenterY + innerY,
-//                        mCenterX + outerX, mCenterY + outerY, mTickAndCirclePaint);
-//                canvas.drawCircle(mCenterX + innerX, mCenterY + innerY,
-//                        mCenterX + outerX, mTickAndCirclePaint);
-//            }
-
-            /*
-             * These calculations reflect the rotation in degrees per unit of time, e.g.,
-             * 360 / 60 = 6 and 360 / 12 = 30.
-             */
-//            final float seconds =
-//                    (mCalendar.get(Calendar.SECOND) + mCalendar.get(Calendar.MILLISECOND) / 1000f);
-//            final float secondsRotation = seconds * 6f;
-//
-//            final float minutesRotation = mCalendar.get(Calendar.MINUTE) * 6f;
-//
-//            final float hourHandOffset = mCalendar.get(Calendar.MINUTE) / 2f;
-//            final float hoursRotation = (mCalendar.get(Calendar.HOUR) * 30) + hourHandOffset;
 
             /*
              * Save the canvas state before we can begin to rotate it.
              */
 //            canvas.save();
-//
-//            canvas.rotate(hoursRotation, mCenterX, mCenterY);
-//            canvas.drawLine(
-//                    mCenterX,
-//                    mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
-//                    mCenterX,
-//                    mCenterY - sHourHandLength,
-//                    mHourPaint);
-//
-//            canvas.rotate(minutesRotation - hoursRotation, mCenterX, mCenterY);
-//            canvas.drawLine(
-//                    mCenterX,
-//                    mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
-//                    mCenterX,
-//                    mCenterY - sMinuteHandLength,
-//                    mMinutePaint);
-
-            /*
-             * Ensure the "seconds" hand is drawn only when we are in interactive mode.
-             * Otherwise, we only update the watch face once a minute.
-             */
-//            if (!mAmbient) {
-//                canvas.rotate(secondsRotation - minutesRotation, mCenterX, mCenterY);
-//                canvas.drawLine(
-//                        mCenterX,
-//                        mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
-//                        mCenterX,
-//                        mCenterY - mSecondHandLength,
-//                        mSecondPaint);
-//
-//            }
-//            canvas.drawCircle(
-//                    mCenterX,
-//                    mCenterY,
-//                    CENTER_GAP_AND_CIRCLE_RADIUS,
-//                    mTickAndCirclePaint);
-//
 
             mWidth = canvas.getWidth();
             mHeight = canvas.getHeight();
@@ -521,7 +436,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
             if (visible) {
                 registerReceiver();
-                /* Update time zone in case it changed while we weren"t visible. */
+                /* Update time zone in case it changed while we weren't visible. */
                 mCalendar.setTimeZone(TimeZone.getDefault());
                 invalidate();
             } else {
@@ -578,8 +493,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             invalidate();
             if (shouldTimerBeRunning()) {
                 long timeMs = System.currentTimeMillis();
-                long delayMs = INTERACTIVE_UPDATE_RATE_MS
-                        - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
+                long delayMs = INTERACTIVE_UPDATE_RATE_MS - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
                 mUpdateTimeHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
             }
         }
