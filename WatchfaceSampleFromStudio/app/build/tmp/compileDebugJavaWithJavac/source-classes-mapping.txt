@@ -1,9 +1,0 @@
-com/example/watchfacesamplefromstudio/BuildConfig.java
- com.example.watchfacesamplefromstudio.BuildConfig
-com/example/watchfacesamplefromstudio/MyWatchFace.java
- com.example.watchfacesamplefromstudio.MyWatchFace
- com.example.watchfacesamplefromstudio.MyWatchFace$1
- com.example.watchfacesamplefromstudio.MyWatchFace$Engine
- com.example.watchfacesamplefromstudio.MyWatchFace$Engine$1
- com.example.watchfacesamplefromstudio.MyWatchFace$Engine$2
- com.example.watchfacesamplefromstudio.MyWatchFace$EngineHandler
