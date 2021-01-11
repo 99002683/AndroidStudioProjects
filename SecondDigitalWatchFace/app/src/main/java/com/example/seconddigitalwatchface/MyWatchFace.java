@@ -49,7 +49,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
     /*
      * Updates rate in milliseconds for interactive mode. We update once a second to advance the
-     * second hand.
+     * second hand.  (to update our watch face every second)
      */
     private static final long INTERACTIVE_UPDATE_RATE_MS = TimeUnit.SECONDS.toMillis(1);
 
@@ -59,7 +59,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
     private static final int MSG_UPDATE_TIME = 0;
 
     @Override
-    public Engine onCreateEngine() {
+    public Engine onCreateEngine()
+    {
         return new Engine();
     }
 
@@ -76,22 +77,27 @@ public class MyWatchFace extends CanvasWatchFaceService {
             if (engine != null) {
                 switch (msg.what) {
                     case MSG_UPDATE_TIME:
-                        engine.handleUpdateTimeMessage();
+                        engine.handleUpdateTimeMessage();  //to handle updating the time periodically in interactive mode.
                         break;
                 }
             }
         }
     }
 
-    private class Engine extends CanvasWatchFaceService.Engine {
-
+    private class Engine extends CanvasWatchFaceService.Engine
+            //watch face engine that handles system events, such as the screen turning off or going into ambient mode.
+    {
+        private static final float SECOND_TICK_STROKE_WIDTH = 2f;
         private static final int SHADOW_RADIUS = 6;
         /* Handler to update the time once a second in interactive mode. */
         private final Handler mUpdateTimeHandler = new EngineHandler(this);
         private Calendar mCalendar;
-        private final BroadcastReceiver mTimeZoneReceiver = new BroadcastReceiver() {
+
+        private final BroadcastReceiver mTimeZoneReceiver = new BroadcastReceiver()
+        {
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onReceive(Context context, Intent intent)  // This receiver simply resets to default time zone and display time.
+            {
                 mCalendar.setTimeZone(TimeZone.getDefault());
                 invalidate();
             }
@@ -114,6 +120,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private Paint mDatePaint;
         private Paint mBatteryPaint;
         private Paint mSecondStickPaint;
+        private Paint mTickAndCirclePaint;
         private Paint mBackgroundPaint;
         private Bitmap mBackgroundBitmap;
         private Bitmap mGrayBackgroundBitmap;
@@ -149,7 +156,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private void initializeBackground() {
             mBackgroundPaint = new Paint();
             mBackgroundPaint.setColor(Color.BLACK);
-            mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.watchface_bg);
+            mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.watchface_service_bg2);
 
             /* Extracts colors from background image to improve watchface style. */
             Palette.from(mBackgroundBitmap).generate(new Palette.PaletteAsyncListener() {
@@ -192,6 +199,13 @@ public class MyWatchFace extends CanvasWatchFaceService {
             mSecondStickPaint.setColor(getResources().getColor(R.color.Red));
             mSecondStickPaint.setStrokeWidth(3);
             mSecondStickPaint.setAntiAlias(true);
+
+            mTickAndCirclePaint = new Paint();
+            mTickAndCirclePaint.setColor(mTimePaintColor);
+            mTickAndCirclePaint.setStrokeWidth(SECOND_TICK_STROKE_WIDTH);
+            mTickAndCirclePaint.setAntiAlias(true);
+            mTickAndCirclePaint.setStyle(Paint.Style.STROKE);
+            //mTickAndCirclePaint.setShadowLayer(SHADOW_RADIUS, 0, 0, mTimePaintColor);
         }
 
         @Override
@@ -212,6 +226,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         {
             super.onTimeTick();
             invalidate();
+            //If invalidate gets called it tells the system that the current view has changed and it should be redrawn as soon as possible
         }
 
         @Override
@@ -261,7 +276,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
         }
 
         @Override
-        public void onInterruptionFilterChanged(int interruptionFilter) {
+        public void onInterruptionFilterChanged(int interruptionFilter)
+                //is called when the user manually changes the interruption settings on their wearable.
+        {
             super.onInterruptionFilterChanged(interruptionFilter);
             boolean inMuteMode = (interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE);
 
@@ -359,22 +376,32 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
         private void drawWatchFace(Canvas canvas, Rect bounds) {
 
-            /*
-             * Draw ticks. Usually you will want to bake this directly into the photo, but in
-             * cases where you want to allow users to select their own photos, this dynamically
-             * creates them on top of the photo.
-             */
-
-            /*
-             * Save the canvas state before we can begin to rotate it.
-             */
-//            canvas.save();
-
             mWidth = canvas.getWidth();
             mHeight = canvas.getHeight();
 
             float mCenterX = mWidth / 2f;
             float mCenterY = mHeight / 2f;
+            /*
+             * Draw ticks. Usually you will want to bake this directly into the photo, but in
+             * cases where you want to allow users to select their own photos, this dynamically
+             * creates them on top of the photo.
+             */
+            float innerTickRadius = mCenterX - 10;
+            float outerTickRadius = mCenterX ;
+
+            for (int tickIndex = 0; tickIndex < 12; tickIndex++) {
+                float tickRot = (float) (tickIndex * Math.PI * 2 / 12);
+                float innerX = (float) Math.sin(tickRot) * innerTickRadius;
+                float innerY = (float) - Math.cos(tickRot) * innerTickRadius;
+                float outerX = (float) Math.sin(tickRot) * outerTickRadius;
+                float outerY = (float) -Math.cos(tickRot) * outerTickRadius;
+                canvas.drawLine(mCenterX + innerX, mCenterY + innerY, mCenterX + outerX, mCenterY + outerY, mTickAndCirclePaint);
+            }
+
+            /*
+             * Save the canvas state before we can begin to rotate it.
+             */
+//            canvas.save();
 
             mCalendar = Calendar.getInstance();
             Date date = new Date();
@@ -404,7 +431,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             canvas.drawText(batteryText, batteryXOffset, batteryYOffset + dateYOffset, mBatteryPaint);
 
             float mSecondHandLength = mCenterX;
-            float secondsRotation = mCalendar.get(Calendar.SECOND) * 6f;
+            float secondsRotation = mCalendar.get(Calendar.SECOND) * 6f;       //These calculations reflect the rotation in degrees per unit of time, e.g., * 360 / 60 = 6
             canvas.rotate(secondsRotation, mCenterX, mCenterY);
             canvas.drawLine(mCenterX, mCenterY - 120, mCenterX, mCenterY - mSecondHandLength, mSecondStickPaint);
 
