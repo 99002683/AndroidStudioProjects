@@ -43,7 +43,7 @@ public class MyView extends View {
     private int mHeight;
     private Calendar mCalendar;
 
-    private String text = "ABCDEFGHIJKLMN";
+    private String text = "ABC";
     private Paint mnpaint;
     private Paint mncirclePaint;
 
@@ -78,8 +78,8 @@ public class MyView extends View {
         fontSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 13, getResources().getDisplayMetrics());
         int min = Math.min(height, width);
         radius = min / 2 - padding;
-        handTruncation = min / 20;
-        hourHandTruncation = min / 7;
+        handTruncation = (min / 20)*8;   //8
+        hourHandTruncation = (min / 7)*3;    //5
         paint = new Paint();
         isInit = true;
     }
@@ -95,6 +95,7 @@ public class MyView extends View {
         //drawCenter(canvas);
         initializeWatchFace();
         drawWatchFace(canvas);
+        drawHands(canvas);
         //drawNumeral(canvas);
         //drawTicks(canvas);
 
@@ -243,11 +244,13 @@ public class MyView extends View {
         //float dateYOffset = computeYOffset(dateText, mDatePaint);
 //        canvas.drawText(dateText, dateXOffset, timeYOffset + dateYOffset, mDatePaint);
 
-        canvas.drawCircle( mCenterX - timeXOffset + padding , mCenterY, (radius/4) , mCirclePaint);
+        //First Circle with Analog Clock
 
 
 
 
+
+        //Second Circle with Date and Month Text
         String dateText = String.format(DATE_FORMAT_DAY, mCalendar.get(Calendar.DAY_OF_MONTH));
         Rect bounds1 = new Rect();
         mDayPaint.getTextBounds(dateText, 0, dateText.length(), bounds1);
@@ -257,9 +260,10 @@ public class MyView extends View {
         String monthText = String.format((new SimpleDateFormat(DATE_FORMAT_MONTH).format(Calendar.MONTH)));
         float dateYOffset = computeYOffset(monthText, mDatePaint);
         Rect bounds2 = new Rect();
-        mDayPaint.getTextBounds(monthText, 0, monthText.length(), bounds2);
+        mMonthPaint.getTextBounds(monthText, 0, monthText.length(), bounds2);
         //canvas.drawCircle(mCenterX + timeXOffset - padding , mCenterY, (radius/4) , mCirclePaint);
         canvas.drawText(monthText, mCenterX + timeXOffset - padding , mCenterY + dateYOffset, mMonthPaint);
+
 
         //canvas.drawCircle(mCenterX , mCenterY - 450, 100 + padding - 10, mCirclePaint);
 
@@ -291,5 +295,33 @@ public class MyView extends View {
         centerY = h / 2;
     }
 
+    private void drawHand(Canvas canvas, double loc, boolean isHour) {
+        mWidth = canvas.getWidth();
+        mHeight = canvas.getHeight();
+
+        float mCenterX = mWidth / 2f;
+        float mCenterY = mHeight / 2f;
+
+        String timeText2 = String.format(TIME_FORMAT_WITHOUT_SECONDS, mCalendar.get(Calendar.HOUR),mCalendar.get(Calendar.MINUTE));
+        float timeXOffset = computeXOffset(timeText2, mTimePaint, mCenterX);
+        float timeYOffset = mCenterY;
+
+        double angle = Math.PI * loc / 30 - Math.PI / 2;
+        int handRadius = isHour ? radius - hourHandTruncation : radius - handTruncation;
+        canvas.drawCircle(mCenterX - timeXOffset + padding , mCenterY, (radius/4) , mCirclePaint);
+        canvas.drawLine(mCenterX - timeXOffset + padding , mCenterY,
+                (float) (mCenterX - timeXOffset+ padding + Math.cos(angle) * handRadius),
+                (float) (mCenterY + Math.sin(angle) * handRadius),
+                mCirclePaint);
+    }
+
+    private void drawHands(Canvas canvas) {
+        Calendar c = Calendar.getInstance();
+        float hour = c.get(Calendar.HOUR_OF_DAY);
+        hour = hour > 12 ? hour - 12 : hour;
+        drawHand(canvas, (hour + c.get(Calendar.MINUTE) / 60) * 5f, true);
+        drawHand(canvas, c.get(Calendar.MINUTE), false);
+        drawHand(canvas, c.get(Calendar.SECOND), false);
+    }
 
 }

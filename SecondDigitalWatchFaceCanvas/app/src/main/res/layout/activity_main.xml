@@ -8,7 +8,7 @@
 
     <com.example.seconddigitalwatchface.MyView
         android:layout_width="400dp"
-        android:layout_height="800dp"
+        android:layout_height="400dp"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>
