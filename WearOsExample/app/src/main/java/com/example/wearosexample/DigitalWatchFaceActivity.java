@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.view.Display;
 
-public abstract class DigitalWatchFaceActivity extends WearableActivity implements DisplayManager.DisplayListener  {
+public abstract class DigitalWatchFaceActivity extends Activity implements DisplayManager.DisplayListener  {
 
     /**
      * Used to detect when the watch is dimming.<br/>

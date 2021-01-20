@@ -166,7 +166,7 @@ public class MainActivity extends DigitalWatchFaceActivity {
         handler.post(runnable);
 
         // Enables Always-on
-       setAmbientEnabled();
+       //setAmbientEnabled();
 
     }
 
@@ -181,7 +181,7 @@ public class MainActivity extends DigitalWatchFaceActivity {
     private BroadcastReceiver timeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-           updateTime();
+            updateTime();
             updateHours();
             updateMinutes();
             updateSeconds();
