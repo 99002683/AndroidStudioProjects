@@ -13,6 +13,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import java.text.SimpleDateFormat;
+import java.time.chrono.HijrahEra;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -41,6 +42,7 @@ public class MyView extends View {
     private static final String TIME_FORMAT_WITHOUT_SECONDS = "%02d:%02d";
     private static final String TIME_FORMAT_WITH_SECONDS = TIME_FORMAT_WITHOUT_SECONDS + ":%02d";
     private static final String DATE_FORMAT = "%02d-%02d-%d";  //"%02d.%02d.%d";
+    private static final String DATE_FORMAT1 = "EEE, d MMM yyyy";
     private static final String TIME_FORMAT_24_HOUR = "HH:mm";
     private static final String TIME_FORMAT_12_HOUR = "hh:mm";
     private String batteryText = "100%";
@@ -84,7 +86,7 @@ public class MyView extends View {
         drawWatchFace(canvas);
         //drawNumeral(canvas);
         //drawTicks(canvas);
-//        drawHands(canvas);
+        //drawHands(canvas);
 
         postInvalidateDelayed(500);
         invalidate();
@@ -186,31 +188,32 @@ public class MyView extends View {
         Date date = new Date();
         TimeZone tz = TimeZone.getDefault();
 
-
-        //String timeText1 = String.format(shouldShowSeconds ? TIME_FORMAT_WITH_SECONDS : TIME_FORMAT_WITHOUT_SECONDS, mCalendar.get(Calendar.HOUR),mCalendar.get(Calendar.MINUTE),mCalendar.get(Calendar.SECOND));
+        //Time
         String timeText2 = String.format(TIME_FORMAT_WITHOUT_SECONDS, mCalendar.get(Calendar.HOUR),mCalendar.get(Calendar.MINUTE));
 
 //        SimpleDateFormat sdf1 = new SimpleDateFormat(TIME_FORMAT_12_HOUR);
 //        sdf1.setTimeZone(tz);
 //        String timeText3 = String.format(sdf1.format(date), sdf1);
-
         float timeXOffset = computeXOffset(timeText2, mTimePaint, mCenterX);
         float timeYOffset = mCenterY;
         canvas.drawText(timeText2, timeXOffset, timeYOffset, mTimePaint);
 
-//        SimpleDateFormat sdf2 = new SimpleDateFormat(DATE_FORMAT);
-//        sdf2.setTimeZone(tz);
-//        String dateText = String.format(sdf2.format(date), sdf2);
-        String dateText = String.format(DATE_FORMAT, mCalendar.get(Calendar.DAY_OF_MONTH), (mCalendar.get(Calendar.MONTH)+1), mCalendar.get(Calendar.YEAR));
+        //Date
+        SimpleDateFormat sdf2 = new SimpleDateFormat(DATE_FORMAT1);
+        sdf2.setTimeZone(tz);
+        String dateText = String.format(sdf2.format(date), sdf2);
+        //String monthText = String.format((new SimpleDateFormat(DATE_FORMAT_MONTH).format(Calendar.MONTH)));
+        //String dateText = new SimpleDateFormat(DATE_FORMAT1).format(mCalendar.get(Calendar.DAY_OF_MONTH) + mCalendar.get(Calendar.DATE) + mCalendar.get(Calendar.MONTH) + mCalendar.get(Calendar.YEAR));
         float dateXOffset = computeXOffset(dateText, mDatePaint, mCenterX);
         float dateYOffset = computeYOffset(dateText, mDatePaint);
         canvas.drawText(dateText, dateXOffset, timeYOffset + dateYOffset, mDatePaint);
 
+        //Seconds
         float mSecondHandLength = mCenterX - 10;
         float secondsRotation = mCalendar.get(Calendar.SECOND)*6f;       //These calculations reflect the rotation in degrees per unit of time, e.g., * 360 / 60 = 6
         canvas.rotate(secondsRotation, mCenterX, mCenterY);
+        //canvas.drawLine(mCenterX, mCenterY - 350, mCenterX, mCenterY - mSecondHandLength, mSecondStickPaint);
         canvas.drawLine(mCenterX, mCenterY - 350, mCenterX, mCenterY - mSecondHandLength, mSecondStickPaint);
-
     }
 
     private static float computeXOffset(String text, Paint paint, float mCenterX) {
@@ -225,5 +228,28 @@ public class MyView extends View {
         return textBounds.height() + 30.0f;
     }
 
+    private void drawHand(Canvas canvas, double loc, boolean isHour) {
+        mWidth = canvas.getWidth();
+        mHeight = canvas.getHeight();
 
+        float mCenterX = mWidth / 2f;
+        float mCenterY = mHeight / 2f;
+
+        double angle = Math.PI * loc / 30 - Math.PI / 2;
+        int handRadius = isHour ? radius - handTruncation - hourHandTruncation : radius - handTruncation;
+        float mSecondHandLength = (mCenterX-10);
+        //canvas.drawLine(width / 2, height/2, (float) (mCenterX + Math.cos(angle) * mSecondHandLength), (float) (height / 2 + Math.sin(angle)* mSecondHandLength), paint);
+        //canvas.drawLine(mCenterX , mCenterY , (float) (mCenterX + Math.cos(angle) * handRadius), (float) (height/2  + Math.sin(angle)* handRadius), paint);
+        canvas.drawLine(mCenterX, mCenterY, (float)(mCenterX + Math.cos(angle) * handRadius), (float)(mCenterY + Math.sin(angle)* handRadius), mSecondStickPaint);
+    }
+
+    private void drawHands(Canvas canvas) {
+        Calendar c = Calendar.getInstance();
+        float hour = c.get(Calendar.HOUR_OF_DAY);
+        hour = hour > 12 ? hour - 12 : hour;
+        //drawHand(canvas, (hour + c.get(Calendar.MINUTE) / 60) * 5f, true);
+        //
+        // drawHand(canvas, c.get(Calendar.MINUTE), false);
+        drawHand(canvas, c.get(Calendar.SECOND), false);
+    }
 }
