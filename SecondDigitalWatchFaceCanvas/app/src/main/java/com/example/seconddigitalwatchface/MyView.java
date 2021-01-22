@@ -1,7 +1,10 @@
 package com.example.seconddigitalwatchface;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,6 +13,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
@@ -68,7 +72,7 @@ public class MyView extends View {
     private static final String TIME_FORMAT_24_HOUR = "HH:mm";
     private static final String TIME_FORMAT_12_HOUR = "hh:mm";
     private static final String DATE_FORMAT_DAY = "EEE";
-    private String batteryText = "100%";
+    private int batteryText = 100;
 
     public MyView(Context context) {
         super(context);
@@ -242,21 +246,24 @@ public class MyView extends View {
         mPaint.setDither(true);
         mPaint.setColor(Color.GRAY);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(1);
         mPaint.setColor(Color.parseColor("#33b5e5"));
-        mPaint.setStrokeWidth(15);
+        mPaint.setStrokeWidth(7);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mCalendar = Calendar.getInstance(mTimeZone != null ? mTimeZone : TimeZone.getDefault());
+
+        IntentFilter batteryFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        getContext().registerReceiver(mbatteryIntent,batteryFilter);
         onTimeChanged();
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        getContext().unregisterReceiver(mbatteryIntent);
     }
 
     private void drawWatchFace(Canvas canvas) {
@@ -331,7 +338,7 @@ public class MyView extends View {
         //Upper Circle Arc
         RectF box1 = new RectF(mCenterX - (padding *3)   ,mCenterY - timeXOffset -(padding*2f) ,mCenterX + (padding *3),mCenterY - timeXOffset + (padding*4f));
         //RectF box = new RectF(mCenterX - (dateYOffset * 1.5f)   ,mCenterY - timeXOffset -(padding*2) ,mCenterX +(dateYOffset*1.5f),mCenterY - (dateYOffset *2.6f)-padding);
-        float sweep = 360 * percent * 0.01f;
+        float sweep = 360 * batteryText * 0.01f;
         canvas.drawArc(box1, 0, sweep, false, mPaint);
 
        // canvas.drawText("Circle", canvas.getWidth() / 2, canvas.getHeight() / 2, mCirclePaint);
@@ -397,5 +404,16 @@ public class MyView extends View {
         //setContentDescription(DateFormat.format(mDescFormat, mCalendar));
         invalidate();
     }
-    
+
+    private void updateBattery(int batteryText){
+            this.batteryText = batteryText;
+    }
+
+    private BroadcastReceiver mbatteryIntent = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateBattery(intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0));
+        }
+    };
+
 }
